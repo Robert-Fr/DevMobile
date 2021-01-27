@@ -1,0 +1,12 @@
+    <form [formGroup]="listForm" (ngSubmit)="onCreate()">
+        <ion-item>
+          <ion-label>Nom de la liste:</ion-label>
+          <ion-input type="text" formControlName="listName"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="errorControl.listName.touched && errorControl.listName.errors?.required">
+          this field is required
+        </ion-text>
+          <ion-button [disabled]="!listForm.valid" type="submit" expand="block" >
+              Créer liste
+        </ion-button>
+      </form>

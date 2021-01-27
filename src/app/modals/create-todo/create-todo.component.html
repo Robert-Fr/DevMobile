@@ -1,0 +1,19 @@
+<form [formGroup]="todoForm" (ngSubmit)="onCreate()">
+  <ion-item>
+    <ion-label>Nom du Todo:</ion-label>
+    <ion-input type="text" formControlName="todoName"></ion-input>
+  </ion-item>
+  <ion-text color="danger" *ngIf="errorControl.name.touched && errorControl.todoName.errors?.required">
+    this field is required
+  </ion-text>
+  <ion-text color="danger" *ngIf="errorControl.name.touched && errorControl.todoName.errors?.minlength">
+    Au moins 3 caractères
+  </ion-text>
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-input type="text" formControlName="todoDescritpion"></ion-input>
+  </ion-item>
+    <ion-button [disabled]="!todoForm.valid" type="submit" expand="block" >
+        Créer
+    </ion-button>
+</form>

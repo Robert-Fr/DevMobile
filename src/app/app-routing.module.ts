@@ -12,9 +12,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'list-details/:id',
+    path: 'list-details/:listId',
     loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule)
   },
+  {
+    path: 'list-details/:listId/todo-details/:todoId',
+    loadChildren: () => import('./pages/todo-details/todo-details.module').then( m => m.TodoDetailsPageModule)
+  }
 ];
 
 @NgModule({

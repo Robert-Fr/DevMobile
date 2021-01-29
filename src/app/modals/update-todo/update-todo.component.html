@@ -1,0 +1,28 @@
+<form [formGroup]="updateTodoForm" (ngSubmit)="onUpdate()">
+  <ion-item>
+    <ion-label>Name :</ion-label>
+    <ion-input input="text" formControlName="todoName"></ion-input>
+  </ion-item>
+  <ion-text color="danger" *ngIf="errorControl.todoName.touched && errorControl.todoName.errors?.required">
+    <h1>This fileds is mandatory</h1>
+  </ion-text>
+  <ion-text color="danger" *ngIf="errorControl.todoName.touched && errorControl.todoName.errors?.minlength">
+    <h1>The name must has a least 3 characters</h1>
+  </ion-text>
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-input input="text" formControlName="todoDescription"></ion-input>
+  </ion-item>
+  <ion-text color="danger" *ngIf="errorControl.todoDescription.touched && errorControl.todoDescription.errors?.required">
+    <h1>This fileds is mandatory</h1>
+  </ion-text>
+  <!-- TODO : corriger la checkbox comme champ de saisie -->
+  <ion-item>
+    <ion-label>Is done:</ion-label>
+    <ion-input input="checkbox" type="checkbox" formControlName="todoIsDone"></ion-input>
+  </ion-item>
+
+  <ion-button [disabled]="!this.updateTodoForm.valid" type="submit" expand="block" fill="clear" shape="round">
+    Update Todo
+  </ion-button>
+</form>

@@ -5,5 +5,14 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-item-sliding>
+  <ion-item>
+    <ion-text>{{this.todo.name}} : ({{this.todo.id}})</ion-text>
+    <ion-text>{{this.todo.description}}</ion-text>
+    <ion-checkbox checked="this.todo.isDone" disabled="true"></ion-checkbox>
+  </ion-item>
+  <ion-item-options side="end">
+    <ion-item-option (click)="presentUpdateModal(todo)" color="medium">Update</ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>
 </ion-content>

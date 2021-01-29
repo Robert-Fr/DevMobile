@@ -16,7 +16,6 @@ export class CreateTodoComponent implements OnInit {
 
   constructor(private modalController: ModalController,
     private listService:ListService,
-    private actRoute :ActivatedRoute,
     private fb : FormBuilder) { }
 
   ngOnInit() {
@@ -29,8 +28,7 @@ export class CreateTodoComponent implements OnInit {
 //Called when user clicks on the Add button
   onCreate(){
     if(this.todoForm.valid){
-      const listId=this.actRoute.snapshot.paramMap.get('id')
-      this.listService.addTodo(listId,new Todo(this.todoForm.get('todoName').value,this.todoForm.get('todoDescription').value));
+      this.listService.addTodo(this.listId,new Todo(this.todoForm.get('todoName').value,this.todoForm.get('todoDescription').value));
       //Une fois le todo crée on réaffiche la page normalement
       this.dismiss();
     }

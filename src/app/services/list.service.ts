@@ -6,43 +6,34 @@ import { Todo } from '../models/todo';
   providedIn: 'root'
 })
 export class ListService {
-  list:List[];
+  public lists: List[];
 
-  constructor() {
-    this.list=[];
-   }
-
-  getAll():List[] {
-    return this.list;
+  constructor() { 
+    this.lists = [];
   }
 
-  getOne(id:string):List{
-    return this.list.find(el=>el.id===id);
+  getAll(){
+    return this.lists;
   }
 
-  create(list:List) {
-    this.list.push(list);
-  }
-  delete (list:List){
-    this.list.splice(this.list.indexOf(list),1)
-  }
-  addTodo(id:string,todo:Todo){
-    this.getOne(id).todos.push(todo)
+  getOne(id: string){
+    return Object.assign({}, this.lists.find(l => l.id === id));
   }
 
-  deleteTodo(todoList : List,todo:Todo){
-    const actList : List =this.list[this.list.indexOf(todoList)] //on récupère une référence sur la liste de laquelle on veut enlever un todo
-    actList.todos.splice(actList.todos.indexOf(todo),1) //on supprimme le todo
+  create(list: List){
+    this.lists.push(list);
   }
 
-  getTodo(listId : string ,todoId : string ):Todo{
-    console.log("finding todo in : "+listId+ " and todoid: "+todoId)
-    return this.getOne(listId).todos.find(el=>el.id === todoId)
+  addTodo(todo: Todo, listId: string){
+    this.getOne(listId).todos.push(todo);
   }
-  updateTodo(listId : string, todoId:string,name:string,desc:string,isDone:boolean){
-    const todo:Todo = this.getTodo(listId,todoId)
-    todo.name=name
-    todo.isDone=isDone
-    todo.description=desc
+
+  deleteTodo(todo: Todo, listId: string){
+    const list = this.getOne(listId);
+    list.todos.splice(list.todos.indexOf(todo), 1);
+  }
+
+  delete(list){
+    this.lists.splice(this.lists.indexOf(list), 1);
   }
 }

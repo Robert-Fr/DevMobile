@@ -7,11 +7,7 @@ const routes: Routes = [
   {
     path: '',
     component: ListDetailsPage
-  },{
-    path : 'todo-details/:todoId',
-    loadChildren: () => import('../../pages/todo-details/todo-details.module').then( m => m.TodoDetailsPageModule),
   }
-
 ];
 
 @NgModule({

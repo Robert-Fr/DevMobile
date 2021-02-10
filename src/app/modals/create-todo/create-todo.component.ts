@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ListService } from 'src/app/services/list.service';
 import { ModalController } from '@ionic/angular';
 import { Todo } from 'src/app/models/todo';
-import { ListService } from 'src/app/services/list.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-todo',
@@ -11,37 +11,32 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./create-todo.component.scss'],
 })
 export class CreateTodoComponent implements OnInit {
-  todoForm : FormGroup
-  @Input() listId: string
+  @Input() listId: string;
 
-  constructor(private modalController: ModalController,
-    private listService:ListService,
-    private fb : FormBuilder) { }
+  private newTodoForm: FormGroup;
 
-  ngOnInit() {
-    this.todoForm = this.fb.group ({
-      todoName : ['',[Validators.required,Validators.minLength(3)]],
-      todoDescription :  ['',[Validators.required,Validators.maxLength(255)]]
-    })
+  constructor(private listService: ListService, private formBuilder: FormBuilder, private modalController: ModalController) { }
+
+ngOnInit(){
+    this.newTodoForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      description: ['', [Validators.maxLength(255)]],
+   })
   }
 
-//Called when user clicks on the Add button
-  onCreate(){
-    if(this.todoForm.valid){
-      this.listService.addTodo(this.listId,new Todo(this.todoForm.get('todoName').value,this.todoForm.get('todoDescription').value));
-      //Une fois le todo crée on réaffiche la page normalement
-      this.dismiss();
+  dismissModal() {
+      this.modalController.dismiss(); 
+  }
+
+  createNewTodo(){
+    if(this.newTodoForm.valid){
+      this.listService.addTodo(new Todo(this.newTodoForm.get('name').value, this.newTodoForm.get('description').value), this.listId);
+      this.dismissModal();
     }
   }
-  dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss({
-      'dismissed': true
-    });
+
+  get errorControl() {
+    return this.newTodoForm.controls;
   }
-  get errorControl(){
-    return this.todoForm.controls
-  }
-  
+
 }

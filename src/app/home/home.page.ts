@@ -1,34 +1,34 @@
-import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { Component, OnInit } from '@angular/core';
 import { List } from '../models/list';
 import { ListService } from '../services/list.service';
+import { ModalController } from '@ionic/angular';
+import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+  private lists: List[];
 
-  lists : List[];
-
-  constructor(private listService : ListService,
-    public modalController: ModalController) {}
-
-  ngOnInit() {
-    this.lists=this.listService.getAll() ;
+  constructor(private listService: ListService, public modalController: ModalController) {
+    this.lists = [];
   }
 
-  delete(list:List){
-    this.listService.delete(list)
+  ngOnInit(){
+    this.lists = this.listService.getAll();
   }
 
-  async presentModal() {
+  async openCreateModal(){
     const modal = await this.modalController.create({
-      component: CreateListComponent
+      component: CreateListComponent,
     });
     return await modal.present();
   }
 
+  async delete(list){
+    this.listService.delete(list);
+  }
 }

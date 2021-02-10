@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
-import { List } from 'src/app/models/list';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ListService } from 'src/app/services/list.service';
+import { List } from 'src/app/models/list';
 
 @Component({
   selector: 'app-create-list',
@@ -11,39 +11,32 @@ import { ListService } from 'src/app/services/list.service';
 })
 export class CreateListComponent implements OnInit {
 
-  //list : List=null;
-  listForm : FormGroup
+  newListForm: FormGroup;
 
-  constructor(private listService:ListService,
-    private modalController: ModalController,
-    private fb : FormBuilder) { }
-
-  ngOnInit() {
-    //this.list = {name: "",todos:[],id:0};
-    this.listForm = this.fb.group({
-      listName : ['',Validators.required]
-    })
+  constructor(private modalController: ModalController, private formBuilder: FormBuilder,
+    private listService: ListService) {
+   
   }
 
-  //Called when user clicks on the Add button
-  onCreate(){
-    if(this.listForm.valid){
-      this.listService.create(new List(this.listForm.get('listName').value));
-      //Une fois la liste crée on réaffiche la home page normalement
-      this.dismiss();
+  ngOnInit(){
+    this.newListForm = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(2)]],
+   })
+  }
+
+  dismissModal() {
+      this.modalController.dismiss(); 
+  }
+
+  createNewList(){
+    if(this.newListForm.valid){
+      this.listService.create(new List(this.newListForm.get('name').value));
+      this.dismissModal();
     }
   }
-  dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-      console.log("dismiss modal")
-    this.modalController.dismiss({
-      'dismissed': true
-    });
 
-  }
-  get errorControl(){
-    return this.listForm.controls
+  get errorControl() {
+    return this.newListForm.controls;
   }
 
 }

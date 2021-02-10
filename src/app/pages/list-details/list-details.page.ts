@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
-import { UpdateTodoComponent } from 'src/app/modals/update-todo/update-todo.component';
-import { List } from 'src/app/models/list';
-import { Todo } from 'src/app/models/todo';
 import { ListService } from 'src/app/services/list.service';
+import { List } from 'src/app/models/list';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-details',
@@ -13,29 +11,28 @@ import { ListService } from 'src/app/services/list.service';
   styleUrls: ['./list-details.page.scss'],
 })
 export class ListDetailsPage implements OnInit {
+  private list: List;
 
-  list : List
-  constructor(private listeService : ListService,
-      private modalController : ModalController,
-      private actRoute :ActivatedRoute) { }
+  constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute) {
+   }
 
   ngOnInit() {
-    const listId=this.actRoute.snapshot.paramMap.get('listId')
-    this.list=this.listeService.getOne(listId)
+  const listId = this.route.snapshot.paramMap.get('listId');
+  this.list = this.listService.getOne(listId)
   }
-  async presentModal() {
+
+  async openCreateModal(){
     const modal = await this.modalController.create({
       component: CreateTodoComponent,
-      componentProps : {
-        'listId' : this.list.id
+      componentProps: {
+        'listId': this.list.id
       }
     });
     return await modal.present();
   }
 
-  delete (todo:Todo) {
-    this.listeService.deleteTodo(this.list,todo)
+  delete(todo){
+    this.listService.deleteTodo(todo, this.list.id);
   }
 
-  
 }

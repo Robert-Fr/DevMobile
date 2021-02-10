@@ -1,12 +1,13 @@
 export class Todo {
-    name : string;
-    description : string;
-    isDone : boolean=false;
-    id : string
-
-    constructor(name:string,description:string){
-        this.name=name;
-        this.description=description;
-        this.id='_'+Math.random().toString(36).substr(2,9);
+    constructor(name, description){
+        this.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
+        this.name = name;
+        this.description = description;
+        this.isDone = false;
     }
+    
+    id: string;
+    name: string;
+    description: string;
+    isDone: boolean;
 }

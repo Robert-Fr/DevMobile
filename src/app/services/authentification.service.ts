@@ -8,24 +8,33 @@ export class AuthentificationService {
 
   userData: any; // Save logged in user data
 
-
-  constructor(){} // Inject Firebase auth service) {
+  constructor(){}
 
 
   public login(email: string, psw: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, psw)
+    firebase.auth().signInWithEmailAndPassword(email, psw)
   .then((userCredential) => {
-    // Signed in 
+    // Signed in
     var user = userCredential.user;
     // ...
   })
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
-    // ..
   });
   }
 
   public createUser(email: string, psw: string) {
+    firebase.auth().createUserWithEmailAndPassword(email, psw)
+    .then((userCredential) => {
+      // Signed in 
+      var user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ..
+    });
   }
 }

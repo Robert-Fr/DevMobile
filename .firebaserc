@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "todolist-d6787": {
+      "hosting": {
+        "app": [
+          "todolist-d6787"
+        ]
+      }
+    }
+  }
+}

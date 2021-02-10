@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">Login</ion-label>
+      <ion-input type="text" name="login" formControlName="login" required></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorControl.login.touched && errorControl.login.errors?.required">
+      <span>
+        This field is required
+      </span>
+    </ion-text>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password" name="password" formControlName="password" required></ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="errorControl.password.touched && errorControl.password.errors?.required">
+      <span>
+        This field is required
+      </span>
+    </ion-text>
+    <ion-row>
+      <ion-col>
+        <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>

@@ -17,9 +17,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule,
-     IonicModule.forRoot(),
-      AppRoutingModule,
-      AngularFireModule.initializeApp(environment.firebase),
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule],
   providers: [
@@ -29,4 +29,4 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

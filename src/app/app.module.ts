@@ -12,6 +12,9 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AuthentificationService } from './services/authentification.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +28,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+
   ],
   bootstrap: [AppComponent]
 })

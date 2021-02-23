@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,9 @@ export class LoginPage implements OnInit {
 
   private loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private modalController: ModalController) { }
+  constructor(private formBuilder: FormBuilder, 
+    private modalController: ModalController,
+    private authentificationService : AuthentificationService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -21,7 +25,7 @@ export class LoginPage implements OnInit {
   }
 
   login(): void {
-    //TODO : login
+    this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);
   }
 
   get errorControl() {

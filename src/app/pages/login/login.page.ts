@@ -13,8 +13,7 @@ export class LoginPage implements OnInit {
 
   private loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, 
-    private modalController: ModalController,
+  constructor(private formBuilder: FormBuilder,
     private authentificationService : AuthentificationService) { }
 
   ngOnInit() {

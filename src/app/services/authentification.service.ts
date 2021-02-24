@@ -5,16 +5,16 @@ import 'firebase/auth';
 import { Router } from '@angular/router';
 import { redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
-@Injectable({
-  providedIn: 'root'
-})
+
 
 export const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home']);
-
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthentificationService {
 
-  userData: any; // Save logged in user data
+  public userData: any; // Save logged in user data
 
   constructor(private router : Router ){}
 
@@ -24,9 +24,9 @@ export class AuthentificationService {
   .then((userCredential) => {
     // Signed in
     var user = userCredential.user;
+    this.userData=userCredential
     console.log(`user : ${user}`);
     this.router.navigate(['home']);
-    // ...
   })
   .catch((error) => {
     var errorCode = error.code;
@@ -35,17 +35,20 @@ export class AuthentificationService {
   });
   }
 
-  public createUser(email: string, psw: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, psw)
-    .then((userCredential) => {
-      // Signed in 
-      var user = userCredential.user;
-      // ...
+  public createUser(email: string, psw: string) : Promise<firebase.auth.UserCredential> {
+    //Je renvoie la promise pour pouvoir l'utiliser dans la page "register"
+    return firebase.auth().createUserWithEmailAndPassword(email, psw)
+  }
+
+  public signOut () : void{
+    firebase.auth().signOut().then(() => {
+      console.log("Signed out !")
+      this.router.navigate(['login'])
     })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
+  }
+
+  public recoverPassword (email : string) : Promise <void>{
+    //Je renvoie la promise pour pouvoir l'utiliser dans la page "password-recovery"
+    return firebase.auth().sendPasswordResetEmail(email)
   }
 }

@@ -1,22 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>register</ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <a routerLink='/register'>Not registered yet ?</a>
-  </ion-toolbar>
-  <ion-toolbar>
-    <a routerLink='/password-recovery'>Forgotten password ?</a>
+    <a routerLink='/login'>Already registered ?</a>
   </ion-toolbar>
 </ion-header>
-
+<ion-text *ngIf="this.registerErrorReturned">ERROR MESSAGE : {{this.registerErrorMessage}}</ion-text>
 <ion-content fullscreen>
-  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+  <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">Login</ion-label>
-      <ion-input type="text" name="login" formControlName="login" required></ion-input>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" name="email" formControlName="email" required></ion-input>
     </ion-item>
-    <ion-text color="danger" *ngIf="errorControl.login.touched && errorControl.login.errors?.required">
+    <ion-text color="danger" *ngIf="errorControl.email.touched && errorControl.email.errors?.required">
       <span>
         This field is required
       </span>
@@ -33,9 +30,8 @@
     </ion-text>
     <ion-row>
       <ion-col>
-        <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
+        <ion-button [disabled]="registerForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
       </ion-col>
     </ion-row>
   </form>
-
 </ion-content>

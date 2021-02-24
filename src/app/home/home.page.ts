@@ -4,6 +4,7 @@ import { ListService } from '../services/list.service';
 import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
 import { Router } from '@angular/router';
+import { AuthentificationService } from '../services/authentification.service';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,9 @@ import { Router } from '@angular/router';
 export class HomePage implements OnInit {
   private lists: List[];
 
-  constructor(private listService: ListService, public modalController: ModalController) {
+  constructor(private listService: ListService,
+     public modalController: ModalController,
+     public authService : AuthentificationService) {
     this.lists = [];
   }
 
@@ -30,5 +33,9 @@ export class HomePage implements OnInit {
 
   async delete(list){
     this.listService.delete(list);
+  }
+
+  public signOut() : void {
+    this.authService.signOut();
   }
 }

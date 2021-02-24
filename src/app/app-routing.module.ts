@@ -25,6 +25,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule),
     canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule),
+    canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectAuthorizedToHome }
+  },
+  {
+    path: 'password-recovery',
+    loadChildren: () => import('./pages/password-recovery/password-recovery.module').then( m => m.PasswordRecoveryPageModule)
+  },
 ];
 
 @NgModule({

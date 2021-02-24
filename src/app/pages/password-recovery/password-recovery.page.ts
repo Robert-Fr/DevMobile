@@ -11,6 +11,7 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
 export class PasswordRecoveryPage implements OnInit {
   //deux variables pour afficher un message d'erreur s'il y a un problème dans la création de compte
   public recoveryReturned : boolean
+  public isError : boolean
   public recoveryMessage : String
 
   private recoveryForm : FormGroup
@@ -23,6 +24,7 @@ export class PasswordRecoveryPage implements OnInit {
     this.recoveryForm = this.fb.group({
       email :['',[Validators.required]]
     })
+    this.isError=false
     this.recoveryReturned =false
     this.recoveryMessage = ''
   }
@@ -35,6 +37,7 @@ export class PasswordRecoveryPage implements OnInit {
       console.log(`Mail sent : check yout mails`)
       this.recoveryReturned = true
       this.recoveryMessage = "Mail sent : check yout mails"
+      this.isError=false
       //this.router.navigate(['login'])
     })
     .catch((error) => {
@@ -43,7 +46,8 @@ export class PasswordRecoveryPage implements OnInit {
       this.recoveryReturned=true
       //TODO : afficher dans le form 
       var errorCode = error.code;
-      this.recoveryMessage = errorCode+ "  /  " +error.message;
+      this.recoveryMessage =String(error.message);
+      this.isError=true
     });
   }
 

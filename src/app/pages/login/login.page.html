@@ -31,6 +31,7 @@
         This field is required
       </span>
     </ion-text>
+    <app-promise-message-displayer [isDisplay]="this.isDisplay" [isError]="this.isError" [message]="this.message"></app-promise-message-displayer>
     <ion-row>
       <ion-col>
         <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>

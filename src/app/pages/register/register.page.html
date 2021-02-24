@@ -6,7 +6,6 @@
     <a routerLink='/login'>Already registered ?</a>
   </ion-toolbar>
 </ion-header>
-<ion-text *ngIf="this.registerErrorReturned">ERROR MESSAGE : {{this.registerErrorMessage}}</ion-text>
 <ion-content fullscreen>
   <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
     <ion-item lines="full">
@@ -28,6 +27,7 @@
         This field is required
       </span>
     </ion-text>
+    <app-promise-message-displayer [isError]="true" [isDisplay]="this.isDisplay" [message]="this.message"></app-promise-message-displayer>
     <ion-row>
       <ion-col>
         <ion-button [disabled]="registerForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>

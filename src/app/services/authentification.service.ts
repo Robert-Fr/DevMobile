@@ -19,20 +19,8 @@ export class AuthentificationService {
   constructor(private router : Router ){}
 
 
-  public login(email: string, psw: string) {
-    firebase.auth().signInWithEmailAndPassword(email,psw)
-  .then((userCredential) => {
-    // Signed in
-    var user = userCredential.user;
-    this.userData=userCredential
-    console.log(`user : ${user}`);
-    this.router.navigate(['home']);
-  })
-  .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log("N00B");
-  });
+  public login(email: string, psw: string) : Promise<firebase.auth.UserCredential> {
+    return firebase.auth().signInWithEmailAndPassword(email,psw)
   }
 
   public createUser(email: string, psw: string) : Promise<firebase.auth.UserCredential> {

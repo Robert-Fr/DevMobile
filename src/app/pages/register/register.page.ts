@@ -28,16 +28,14 @@ export class RegisterPage implements OnInit {
     this.message = ''
   }
 
-  register() : void{
+  async register() : Promise<void>{
     var p = this.authService.createUser(this.registerForm.get('email').value,this.registerForm.get('password').value)
     //J'utilise la pomise ici pour pouvoir récupérer les messages d'erreurs et l'afficher sur la page
     p.then((userCredential) => {
       // Signed in 
-      console.log(`REGISTER`)
       this.isDisplay = false
       var user = userCredential.user
-      this.authService.userData=userCredential
-      console.log(`user created : ${user}`)
+      this.authService.userCredential=userCredential
       this.router.navigate(['home'])
     })
     .catch((error) => {

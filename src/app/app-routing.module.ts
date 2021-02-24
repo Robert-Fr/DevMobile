@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { AngularFireAuthGuard,canActivate,emailVerified } from '@angular/fire/auth-guard';
 import { redirectAuthorizedToHome, redirectUnauthorizedToLogin } from './services/authentification.service';
 
 
@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectAuthorizedToHome }
+    ...canActivate(redirectAuthorizedToHome)
   },
   {
     path: '',
@@ -18,12 +18,12 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectUnauthorizedToLogin }
+    ...canActivate(redirectUnauthorizedToLogin)
   },
   {
     path: 'list-details/:listId',
     loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule),
-    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: emailVerified,redirectUnauthorizedToLogin }
   },
   {
     path: 'register',

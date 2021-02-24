@@ -34,15 +34,12 @@ export class PasswordRecoveryPage implements OnInit {
     var p = this.authService.recoverPassword(this.recoveryForm.get('email').value)
     //J'utilise la pomise ici pour pouvoir récupérer les messages d'erreurs et l'afficher sur la page
     p.then(() => {
-      console.log(`Mail sent : check yout mails`)
       this.recoveryReturned = true
       this.recoveryMessage = "Mail sent : check yout mails"
       this.isError=false
       //this.router.navigate(['login'])
     })
     .catch((error) => {
-      console.log(`error code: ${error.code}`)
-      console.log(`error message: ${error.message}`)
       this.recoveryReturned=true
       //TODO : afficher dans le form 
       var errorCode = error.code;

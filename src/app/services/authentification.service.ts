@@ -3,18 +3,19 @@ import firebase from 'firebase/app';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import 'firebase/auth';
 import { Router } from '@angular/router';
-import { redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { emailVerified, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 
 
 
 export const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home']);
+export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home'])
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthentificationService {
 
-  public userData: any; // Save logged in user data
+  public userCredential: firebase.auth.UserCredential; // Save logged in user data
 
   constructor(private router : Router ){}
 

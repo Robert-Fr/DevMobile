@@ -7,7 +7,7 @@ import { emailVerified, redirectLoggedInTo, redirectUnauthorizedTo } from '@angu
 
 
 
-export const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+export const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']) 
 export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home'])
 
 @Injectable({
@@ -20,24 +20,28 @@ export class AuthentificationService {
   constructor(private router : Router ){}
 
 
-  public login(email: string, psw: string) : Promise<firebase.auth.UserCredential> {
-    return firebase.auth().signInWithEmailAndPassword(email,psw)
+  public async login(email: string, psw: string){
+    const userCred  = await firebase.auth().signInWithEmailAndPassword(email,psw)
+    return userCred
   }
 
-  public createUser(email: string, psw: string) : Promise<firebase.auth.UserCredential> {
+  public async createUser(email: string, psw: string){
     //Je renvoie la promise pour pouvoir l'utiliser dans la page "register"
-    return firebase.auth().createUserWithEmailAndPassword(email, psw)
+    const userCred = await firebase.auth().createUserWithEmailAndPassword(email, psw)
+    //Avant de connecter l'utilisateur on lui envoie le mail de verification et on attend qu'il ait validé son mail
+    await userCred.user.sendEmailVerification()
+    return userCred
   }
 
-  public signOut () : void{
+  public signOut (){
     firebase.auth().signOut().then(() => {
       console.log("Signed out !")
       this.router.navigate(['login'])
     })
   }
 
-  public recoverPassword (email : string) : Promise <void>{
+  public async recoverPassword (email : string) : Promise <void>{
     //Je renvoie la promise pour pouvoir l'utiliser dans la page "password-recovery"
-    return firebase.auth().sendPasswordResetEmail(email)
+    return await firebase.auth().sendPasswordResetEmail(email)
   }
 }

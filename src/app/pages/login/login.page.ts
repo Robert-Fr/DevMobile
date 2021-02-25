@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
@@ -18,7 +18,8 @@ export class LoginPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private authentificationService: AuthentificationService,
-    private router: Router) { }
+    private router: Router,
+    private toastController: ToastController) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -31,22 +32,45 @@ export class LoginPage implements OnInit {
   }
 
   async login(): Promise<void> {
-    var p = this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);
-    p.then((userCredential) => {
-      // Signed in
-      this.isError = false
-      this.isDisplay = true
-      this.message = 'Login successful ... Redirecting'
-      this.authentificationService.userCredential = userCredential
-      this.router.navigate(['home']);
-    })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
+    try {
+      const userCred = await this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);
+      this.authentificationService.userCredential = userCred
+      if (userCred.user.emailVerified) {
+        const toast = await this.toastController.create({
+          color: "success",
+          duration: 5000,
+          message: "Login successful",
+        })
+        await toast.present();
+        this.isError = false
+        this.isDisplay = true
+        this.message = 'Login successful'
+        this.router.navigate(['home']);
+      }
+      else {
+        const toast = await this.toastController.create({
+          color: "light",
+          duration: 5000,
+          message: "This email isn\'t verified... check your mail box",
+        })
+        await toast.present();
         this.isError = true
         this.isDisplay = true
-        this.message = String(errorMessage)
-      });
+        this.message = 'This email isn\'t verified... check your mail box'
+      }
+    }
+    catch (error) {
+      var errorMessage = error.message;
+      this.isError = true
+      this.isDisplay = true
+      this.message = String(errorMessage)
+      const toast = await this.toastController.create({
+        color: "light",
+        duration: 5000,
+        message: errorMessage,
+      })
+      await toast.present();
+    };
   }
 
   get errorControl() {

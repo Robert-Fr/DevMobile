@@ -7,8 +7,7 @@ import { redirectAuthorizedToHome, redirectUnauthorizedToLogin } from './service
 const routes: Routes = [
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
-    ...canActivate(redirectAuthorizedToHome)
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: '',
@@ -18,17 +17,16 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    ...canActivate(redirectUnauthorizedToLogin)
+    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'list-details/:listId',
     loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule),
-    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: emailVerified,redirectUnauthorizedToLogin }
+    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule),
-    canActivate: [AngularFireAuthGuard],data: { authGuardPipe: redirectAuthorizedToHome }
+    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule)
   },
   {
     path: 'password-recovery',

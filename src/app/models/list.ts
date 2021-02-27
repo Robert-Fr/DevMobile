@@ -1,13 +1,13 @@
 import { Todo } from './todo';
 
 export class List {
-constructor(name){
-    this.id = Math.floor(Math.random() * 10000000000).toString() + Date.now().toString();
+constructor(name : string,uid  : string){
     this.todos = [];
     this.name = name;
+    this.owner = uid
 }
-
-    id: string;
     name: string;
     todos: Todo[];
+    owner : string
+    customID : string
 }

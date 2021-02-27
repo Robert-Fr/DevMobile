@@ -1,39 +1,51 @@
 import { Injectable } from '@angular/core';
 import { List } from '../models/list';
 import { Todo } from '../models/todo';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Test } from '../models/test';
+import { AuthentificationService } from './authentification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListService {
-  public lists: List[];
+  public old_list : List[]
+  public lists: Observable<List[]>;
+  private listsCollection: AngularFirestoreCollection<List>;
 
-  constructor() { 
-    this.lists = [];
+  constructor(private afs : AngularFirestore,
+    private authService : AuthentificationService) { 
+    this.listsCollection=afs.collection<List>('Lists')
+    this.lists= this.listsCollection.valueChanges({ idField: 'customID' })
   }
 
   getAll(){
     return this.lists;
   }
 
-  getOne(id: string){
-    return Object.assign({}, this.lists.find(l => l.id === id));
+  async getOne(id: string) {
+    const test = this.listsCollection.doc(id);
+    return test.get();
+    //return this.afs.collection('Lists', ref => ref.where('id', '==', 'large'))
   }
 
   create(list: List){
-    this.lists.push(list);
+    if(this.authService.userCredential){
+      this.listsCollection.add({...list})
+    }
   }
 
   addTodo(todo: Todo, listId: string){
-    this.getOne(listId).todos.push(todo);
+    //this.getOne(listId).todos.push(todo);
   }
 
   deleteTodo(todo: Todo, listId: string){
     const list = this.getOne(listId);
-    list.todos.splice(list.todos.indexOf(todo), 1);
+    //list.todos.splice(list.todos.indexOf(todo), 1);
   }
 
   delete(list){
-    this.lists.splice(this.lists.indexOf(list), 1);
+    this.old_list.splice(this.old_list.indexOf(list), 1);
   }
 }

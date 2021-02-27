@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
 import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,12 +13,12 @@ import { AuthentificationService } from '../services/authentification.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  private lists: List[];
+  public lists: Observable<List[]>;
+
 
   constructor(private listService: ListService,
      public modalController: ModalController,
      public authService : AuthentificationService) {
-    this.lists = [];
   }
 
   ngOnInit(){

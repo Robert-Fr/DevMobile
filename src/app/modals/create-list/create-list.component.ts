@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ListService } from 'src/app/services/list.service';
 import { List } from 'src/app/models/list';
+import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
   selector: 'app-create-list',
@@ -13,8 +14,10 @@ export class CreateListComponent implements OnInit {
 
   newListForm: FormGroup;
 
-  constructor(private modalController: ModalController, private formBuilder: FormBuilder,
-    private listService: ListService) {
+  constructor(private modalController: ModalController, 
+    private formBuilder: FormBuilder,
+    private listService: ListService,
+    private authService : AuthentificationService) {
    
   }
 
@@ -30,7 +33,7 @@ export class CreateListComponent implements OnInit {
 
   createNewList(){
     if(this.newListForm.valid){
-      this.listService.create(new List(this.newListForm.get('name').value));
+      this.listService.create(new List(this.newListForm.get('name').value,this.authService.userCredential.user.uid));
       this.dismissModal();
     }
   }

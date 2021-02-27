@@ -73,6 +73,29 @@ export class LoginPage implements OnInit {
     };
   }
 
+  public async onSignIn(googleUser) {
+    try {
+      console.log('Google Auth Response', googleUser);
+      // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+      var unsubscribe = this.authentificationService.onSignIn(googleUser)
+      const toast = await this.toastController.create({
+        color: "success",
+        duration: 5000,
+        message: "google auth successful",
+      })
+      await toast.present();
+      this.router.navigate(['home']);
+    }
+    catch (error){
+      const toast = await this.toastController.create({
+        color: "light",
+        duration: 5000,
+        message: error.message,
+      })
+      await toast.present();
+    }
+  }
+
   get errorControl() {
     return this.loginForm.controls;
   }

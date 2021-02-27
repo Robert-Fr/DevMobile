@@ -1,3 +1,4 @@
+
 <ion-header>
   <ion-toolbar>
     <ion-title>login</ion-title>
@@ -38,5 +39,11 @@
       </ion-col>
     </ion-row>
   </form>
-
+  
+  <ion-row>
+    <ion-col>
+      <ion-button class="g-signin2" color="primary" expand="block" (click)="onSignIn()">Sign in with google</ion-button>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    </ion-col>
+  </ion-row>
 </ion-content>

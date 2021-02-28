@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { Test } from '../models/test';
 import { AuthentificationService } from './authentification.service';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,10 +25,10 @@ export class ListService {
     return this.lists;
   }
 
-  async getOne(id: string) {
-    const test = this.listsCollection.doc(id);
-    return test.get();
-    //return this.afs.collection('Lists', ref => ref.where('id', '==', 'large'))
+  getOne(id: string) {
+    return this.listsCollection
+    .doc<List>(id)
+    .valueChanges()
   }
 
   create(list: List){
@@ -37,6 +38,9 @@ export class ListService {
   }
 
   addTodo(todo: Todo, listId: string){
+    // if(this.authService.userCredential){
+    //   this.listsCollection.add({...list})
+    // }
     //this.getOne(listId).todos.push(todo);
   }
 
@@ -46,6 +50,14 @@ export class ListService {
   }
 
   delete(list){
-    this.old_list.splice(this.old_list.indexOf(list), 1);
+    // this.old_list.splice(this.old_list.indexOf(list), 1);
+  }
+
+  private converSnapshotData<T>(actions) {
+    return actions.map(a => {
+      const id = a.payload.doc.id;
+      const data = a.payload.doc.data();
+      return { id, ...data} as T;
+    });
   }
 }

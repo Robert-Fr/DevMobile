@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { Test } from '../models/test';
 import { AuthentificationService } from './authentification.service';
-import { tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +26,25 @@ export class ListService {
   }
 
   getOne(id: string) {
-    return this.listsCollection
-    .doc<List>(id)
-    .valueChanges()
+
+      return this.listsCollection
+      .doc<List>(id)
+      .valueChanges()
+      .pipe(
+        switchMap(list =>
+          this.listsCollection
+            .doc(id)
+            .collection<Todo>('todos')
+            .snapshotChanges()
+            .pipe(
+              map(actions => {
+                list.todos = this.converSnapshotData<Todo>(actions)
+                return list;
+              })
+            )
+        )
+      )
+    
   }
 
   create(list: List){
@@ -38,10 +54,13 @@ export class ListService {
   }
 
   addTodo(todo: Todo, listId: string){
+    this.afs.collection<List>('Lists')
+      .doc(listId)
+      .collection<Todo>('todos')
+      .add(Object.assign({}, todo))
     // if(this.authService.userCredential){
-    //   this.listsCollection.add({...list})
+    //  this.listsCollection.doc<List>(listId).collection<Todo>('todos').add({...todo})
     // }
-    //this.getOne(listId).todos.push(todo);
   }
 
   deleteTodo(todo: Todo, listId: string){
@@ -57,6 +76,7 @@ export class ListService {
     return actions.map(a => {
       const id = a.payload.doc.id;
       const data = a.payload.doc.data();
+      console.log(data);
       return { id, ...data} as T;
     });
   }

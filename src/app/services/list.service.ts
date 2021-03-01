@@ -26,7 +26,6 @@ export class ListService {
   }
 
   getOne(id: string) {
-
       return this.listsCollection
       .doc<List>(id)
       .valueChanges()
@@ -44,27 +43,26 @@ export class ListService {
             )
         )
       )
-    
   }
 
   create(list: List){
-    if(this.authService.userCredential){
-      this.listsCollection.add({...list})
-    }
+    this.listsCollection.add({...list})
   }
 
   addTodo(todo: Todo, listId: string){
-    this.afs.collection<List>('Lists')
-      .doc(listId)
-      .collection<Todo>('todos')
-      .add(Object.assign({}, todo))
-    // if(this.authService.userCredential){
-    //  this.listsCollection.doc<List>(listId).collection<Todo>('todos').add({...todo})
-    // }
+    this.listsCollection
+    .doc(listId)
+    .collection<Todo>('todos')
+    .add(Object.assign({}, todo))
   }
 
   deleteTodo(todo: Todo, listId: string){
     const list = this.getOne(listId);
+    
+    // this.listsCollection
+    //   .doc(listId)
+    //   .collection<Todo>('todos')
+    //   .doc(todo)
     //list.todos.splice(list.todos.indexOf(todo), 1);
   }
 
@@ -76,7 +74,6 @@ export class ListService {
     return actions.map(a => {
       const id = a.payload.doc.id;
       const data = a.payload.doc.data();
-      console.log(data);
       return { id, ...data} as T;
     });
   }

@@ -7,7 +7,7 @@ constructor(name : string,uid  : string){
     this.owner = uid
 }
     name: string;
-    todos: Observable<Todo[]>;
+    todos: Todo[];
     owner : string
     customID : string
 }

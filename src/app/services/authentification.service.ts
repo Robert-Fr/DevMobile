@@ -4,7 +4,7 @@ import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ng
 import 'firebase/auth';
 import { Router } from '@angular/router';
 import { emailVerified, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import {pipe } from 'rxjs';
+import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 

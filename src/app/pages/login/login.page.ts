@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController, ToastController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +13,6 @@ import { AuthentificationService } from 'src/app/services/authentification.servi
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  public isError: boolean
-  public isDisplay: boolean
-  public message: String
   private loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -26,9 +25,6 @@ export class LoginPage implements OnInit {
       login: ['', [Validators.required]],
       password: ['', [Validators.required]],
     })
-    this.isError = false
-    this.isDisplay = false
-    this.message = ''
   }
 
   async login(): Promise<void> {
@@ -42,9 +38,6 @@ export class LoginPage implements OnInit {
           message: "Login successful",
         })
         await toast.present();
-        this.isError = false
-        this.isDisplay = true
-        this.message = 'Login successful'
         this.router.navigate(['home']);
       }
       else {
@@ -54,16 +47,10 @@ export class LoginPage implements OnInit {
           message: "This email isn\'t verified... check your mail box",
         })
         await toast.present();
-        this.isError = true
-        this.isDisplay = true
-        this.message = 'This email isn\'t verified... check your mail box'
       }
     }
     catch (error) {
       var errorMessage = error.message;
-      this.isError = true
-      this.isDisplay = true
-      this.message = String(errorMessage)
       const toast = await this.toastController.create({
         color: "light",
         duration: 5000,

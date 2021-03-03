@@ -1,16 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-  <ion-toolbar>
-    <a routerLink='/register'>Not registered yet ?</a>
-  </ion-toolbar>
-  <ion-toolbar>
-    <a routerLink='/password-recovery'>Forgotten password ?</a>
+    <ion-title>Notes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
+  
+    
+  <ion-row>
+    <ion-col>  
+      <ion-text>
+        <h1>Login</h1>
+      </ion-text>
+    </ion-col>
+  </ion-row>
   <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
     <ion-item lines="full">
       <ion-label position="floating">Login</ion-label>
@@ -21,7 +24,7 @@
         This field is required
       </span>
     </ion-text>
-
+    
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password" name="password" formControlName="password" required></ion-input>
@@ -30,13 +33,18 @@
       <span>
         This field is required
       </span>
-    </ion-text>
-    <app-promise-message-displayer [isDisplay]="this.isDisplay" [isError]="this.isError" [message]="this.message"></app-promise-message-displayer>
+    </ion-text>   
     <ion-row>
       <ion-col>
-        <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
+        <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">Login</ion-button>
       </ion-col>
     </ion-row>
   </form>
 
+  <ion-toolbar>
+    <a routerLink='/register'>Not registered yet ?</a>
+  </ion-toolbar>
+  <ion-toolbar>
+    <a routerLink='/password-recovery'>Forgotten password ?</a>
+  </ion-toolbar>
 </ion-content>

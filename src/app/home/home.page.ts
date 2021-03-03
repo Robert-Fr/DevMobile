@@ -22,7 +22,9 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(){
-    this.lists = this.listService.getAll();
+    /*const queryObs = this.listService.getAllListsOfUser()
+    this.lists = queryObs.
+    owned.next(this.authService.userCredential.user.uid);*/
   }
 
   async openCreateModal(){

@@ -6,6 +6,7 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
 import { CreateListComponent } from '../modals/create-list/create-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { CreateListComponent } from '../modals/create-list/create-list.component
     IonicModule,
     HomePageRoutingModule,
     FormsModule,
+    TranslateModule,
     ReactiveFormsModule
   ],
   declarations: [HomePage, CreateListComponent]

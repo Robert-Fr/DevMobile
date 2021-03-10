@@ -20,20 +20,43 @@
   </ion-header>
 
   <div id="container">
+
+    <!-- Todo lists owned-->
     <ion-list>
-      <!-- Sliding item with text options on both sides -->
-      <ion-item-sliding *ngFor="let list of lists | async">
-             <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+      <ion-label>OWNED</ion-label>
+      <ion-item-sliding *ngFor="let list of listsOwned | async">
+        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
           <ion-label>{{ list.name }}</ion-label>
         </ion-item>
-    
+
         <ion-item-options side="end">
           <ion-item-option (click)="delete(list)" color="danger">
             <ion-icon slot="icon-only" name="trash"></ion-icon>
           </ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
-      </ion-list>
-<ion-button class="bottom-btn" expand="block" fill="outline" (click)="openCreateModal()">Add a new list</ion-button>
+    </ion-list>
+
+    <!-- Todo lists read-->
+    <ion-list>
+      <ion-label>READ</ion-label>
+      <ion-item-sliding *ngFor="let list of listsRead | async">
+        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+          <ion-label>{{ list.name }}</ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Todo lists write-->
+    <ion-list>
+      <ion-label>WRITE</ion-label>
+      <ion-item-sliding *ngFor="let list of listsWrite | async">
+        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+          <ion-label>{{ list.name }}</ion-label>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+
+    <ion-button class="bottom-btn" expand="block" fill="outline" (click)="openCreateModal()">Add a new list</ion-button>
   </div>
 </ion-content>

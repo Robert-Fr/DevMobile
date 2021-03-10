@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ListService } from 'src/app/services/list.service';
 import { List } from 'src/app/models/list';
 import { AuthentificationService } from 'src/app/services/authentification.service';
+import { UserService } from 'src/app/services/user.service';
+import { pluck, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-list',
@@ -16,7 +18,9 @@ export class CreateListComponent implements OnInit {
 
   constructor(private modalController: ModalController, 
     private formBuilder: FormBuilder,
+    private toastController: ToastController,
     private listService: ListService,
+    private userService: UserService,
     private authService : AuthentificationService) {
    
   }
@@ -24,6 +28,7 @@ export class CreateListComponent implements OnInit {
   ngOnInit(){
     this.newListForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
+      emailAuthorized: ['', [Validators.email]]
    })
   }
 
@@ -31,10 +36,37 @@ export class CreateListComponent implements OnInit {
       this.modalController.dismiss(); 
   }
 
-  createNewList(){
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Your settings have been saved.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async createNewList(){
     if(this.newListForm.valid){
-      this.listService.create(new List(this.newListForm.get('name').value,this.authService.userCredential.user.uid));
-      this.dismissModal();
+      const email = this.newListForm.get('emailAuthorized').value;
+      if (email) {
+        const Observable = this.userService.getUserMail(email).pipe(
+          pluck(0,'email'),
+        )
+        Observable.subscribe({
+          next: async email => {
+            if (!email) {
+              await this.presentToast()
+            } else { 
+              const list = new List(this.newListForm.get('name').value,this.authService.userCredential.user.email)
+              list.readers.push(email)
+              this.listService.create(list);
+              this.dismissModal()
+            }
+          }
+        })
+      } else {
+        this.listService.create(new List(this.newListForm.get('name').value,this.authService.userCredential.user.email))
+        this.dismissModal()
+      }
     }
   }
 

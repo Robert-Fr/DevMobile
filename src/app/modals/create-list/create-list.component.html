@@ -11,6 +11,10 @@
     <ion-item lines="full">
       <ion-label position="floating">Name</ion-label>
       <ion-input type="text" name="name" formControlName="name" required></ion-input>
+    </ion-item>    
+    <ion-item lines="full">
+      <ion-label position="floating">Email Authorized</ion-label>
+      <ion-input type="text" name="emailAuthorized" formControlName="emailAuthorized"></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorControl.name.touched && errorControl.name.errors?.required">
       <span>

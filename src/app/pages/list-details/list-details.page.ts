@@ -14,6 +14,9 @@ import { Observable } from 'rxjs';
 export class ListDetailsPage implements OnInit {
   private list:Observable<List>
   private listId : string
+  private isWritable : Observable<boolean>
+  private isReadOnly : Observable<boolean>
+  private isOwned : Observable<boolean>
 
   constructor(private listService: ListService, private modalController: ModalController, private route: ActivatedRoute) {
    }
@@ -21,6 +24,9 @@ export class ListDetailsPage implements OnInit {
   ngOnInit() {
     this.listId = this.route.snapshot.paramMap.get('listId');
     this.list = this.listService.getOne(this.listId)
+    this.list.subscribe(l => this.isOwned=this.listService.isOwned(l))
+    this.list.subscribe(l => this.isReadOnly = this.listService.isReadOnly(l))
+    this.list.subscribe(l => this.isWritable = this.listService.isWritable(l))
   }
 
   async openCreateModal(){
@@ -34,7 +40,7 @@ export class ListDetailsPage implements OnInit {
   }
 
   delete(todo){
-    this.listService.deleteTodo(todo, this.listId);
+      this.listService.deleteTodo(todo, this.listId);
   }
 
 }

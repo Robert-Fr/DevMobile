@@ -14,7 +14,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  public lists: Observable<List[]>;
+  public listsOwned: Observable<List[]>;
+  public listsRead: Observable<List[]>;
+  public listsWrite: Observable<List[]>;
 
 
   constructor(private listService: ListService,
@@ -24,10 +26,13 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(){
-    /*const queryObs = this.listService.getAllListsOfUser()
-    this.lists = queryObs.
-    owned.next(this.authService.userCredential.user.uid);*/
-    this.translate.use('en');
+    const queryObs = this.listService.getAllListsOfUser()
+    //this.lists = queryObs.
+    this.listsOwned = this.listService.listsOwned
+    this.listsRead = this.listService.listsRead
+    this.listsWrite = this.listService.listsWrite
+   // this.lists = this.listService.getAllListsOfUser()
+    this.translate.use('fr');
   }
 
   async openCreateModal(){

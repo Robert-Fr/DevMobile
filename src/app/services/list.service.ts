@@ -11,14 +11,19 @@ import { map, switchMap, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ListService {
-  public old_list : List[]
   public lists: Observable<List[]>;
+  public listsOwned: Observable<List[]>;
+  public listsRead: Observable<List[]>;
+  public listsWrite: Observable<List[]>;
   private listsCollection: AngularFirestoreCollection<List>;
 
   constructor(private afs : AngularFirestore,
     private authService : AuthentificationService) { 
-    this.listsCollection=afs.collection<List>('Lists')
+    this.listsCollection = afs.collection<List>('Lists')
     this.lists= this.listsCollection.valueChanges({ idField: 'id' })
+    this.listsOwned = this.getListsOwned()
+    this.listsRead = this.getListsICanRead()
+    this.listsWrite = this.getListsICanWrite()
   }
 
   getAll(){
@@ -26,28 +31,24 @@ export class ListService {
   }
 
   getListsOwned() {
-    //faire une query qui renvoie un obeservable sur des list tq c'est les list ou : list.owner = authentificationService.userCredential.user.uid
-    const owned = new Subject<string>();
-    const queryObservable = owned.pipe(
-      switchMap( owner => 
-      this.afs.collection('Lists', ref => ref.where('owner', '==', owner)).valueChanges()
-      )
-    )
-    owned.next(this.authService.userCredential.user.uid)
-    //trigger query
-    // return queryObservable
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner', '==', this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    return obs
   }
 
   getListsICanRead() {
-    //faire une query qui renvoie un obeservable sur des list tq c'est les list ou : authentificationService.userCredential.user.uid appartient a list.readers
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('readers',"array-contains" ,this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    return obs
   }
 
   getListsICanWrite(){
-//faire une query qui renvoie un obeservable sur des list tq c'est les list ou : authentificationService.userCredential.user.uid appartient a list.writers
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('writers',"array-contains" ,this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    return obs
   }
 
   getAllListsOfUser(){
-//faire une query qui renvoie un obeservable sur des list tq : c'est l'union des trois du dessus
+    //TODO
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner',"==" ,this.authService.userCredential.user.email)).valueChanges()
+    return obs
   }
 
   getOne(id: string) {
@@ -98,12 +99,44 @@ export class ListService {
       .delete()
   }
 
-
   private converSnapshotData<T>(actions) {
     return actions.map(a => {
       const id = a.payload.doc.id;
       const data = a.payload.doc.data();
       return { id, ...data} as T;
     });
+  }
+
+  public isReadOnly(list : List) : Observable<boolean>{
+    return this.listsRead.pipe(
+      map(tab => {
+        if (tab.indexOf(list) != -1)
+          return false;
+
+        else
+          return true;
+      })
+    );
+  }
+
+  public isWritable(list : List) : Observable<boolean> {
+    return this.listsWrite.pipe(
+      map(tab => {
+        if (tab.indexOf(list) != -1)
+          return false;
+        else
+          return true;
+      })
+    )
+  }
+  public isOwned(list : List) : Observable<boolean> {
+    return this.listsOwned.pipe(
+      map(tab => {
+        if (tab.indexOf(list) != -1)
+          return false;
+        else
+          return true;
+      })
+    )
   }
 }

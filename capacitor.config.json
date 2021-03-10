@@ -3,7 +3,8 @@
   "appName": "Todo",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "www",
+  "webDir": "www", 
+  "linuxAndroidStudioPath": "~/Desktop/android-studio/bin/studio.sh",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0

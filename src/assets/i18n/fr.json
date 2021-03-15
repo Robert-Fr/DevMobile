@@ -1,6 +1,22 @@
 {
-    "demo": {
-        "title": "Traduction demo",
-        "text": "c'est une démonstration d'une appli multi langue"
+    "home": {
+        "title": "Liste(s)"
+    },
+    "general": {
+        "error": {
+            "fieldMinLength": "La longueur minimal est au moins {{number}} lettres",
+            "fieldRequired": "Ce champ est requis"
+        }
+    },
+    "modal": {
+        "list": {
+            "title": "Nouvelle Liste",
+            "inputListName": "Nom de Liste",
+            "inputEmail": "Email du Collaborateur",
+            "radioGroupName": "Paramètre de collaboration",
+            "radioWrite": "Ecriture",
+            "radioRead": "Lecture",
+            "submitList": "Ajouter la Liste"
+        }
     }
 }

@@ -1,6 +1,23 @@
 {
-    "demo": {
-        "title": "Translation demo",
-        "text": "This is a simple demonstration app for ngx-translate"
+    "home": {
+        "title": "List(s)"
+    },
+    "general": {
+        "close": "close",
+        "error": {
+            "fieldMinLength": "Minimum length is at least {{number}} characters",
+            "fieldRequired": "This field is required"
+        }
+    },
+    "modal": {
+        "list": {
+            "title": "New List",
+            "inputListName": "List name",
+            "inputEmail": "Associate Email",
+            "radioGroupName": "Associate settings",
+            "radioWrite": "Write",
+            "radioRead": "Read",
+            "submitList": "Add List"
+        }
     }
 }

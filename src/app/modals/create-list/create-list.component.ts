@@ -6,6 +6,7 @@ import { List } from 'src/app/models/list';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
 import { pluck, tap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-list',
@@ -19,6 +20,7 @@ export class CreateListComponent implements OnInit {
   constructor(private modalController: ModalController, 
     private formBuilder: FormBuilder,
     private toastController: ToastController,
+    private translateService: TranslateService,
     private listService: ListService,
     private userService: UserService,
     private authService : AuthentificationService) {
@@ -28,7 +30,8 @@ export class CreateListComponent implements OnInit {
   ngOnInit(){
     this.newListForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
-      emailAuthorized: ['', [Validators.email]]
+      emailAuthorized: ['', Validators.email],
+      radioSettings: [this.translateService.instant('modal.list.radioWrite'), [Validators.required]]
    })
   }
 
@@ -57,8 +60,12 @@ export class CreateListComponent implements OnInit {
               await this.presentToast()
             } else { 
               const list = new List(this.newListForm.get('name').value,this.authService.userCredential.user.email)
-              list.readers.push(email)
-              this.listService.create(list);
+              if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioWrite')) {
+                list.writers.push(email)
+              } else if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioRead')) {
+                list.readers.push(email)
+              }
+              this.listService.create(list);              
               this.dismissModal()
             }
           }

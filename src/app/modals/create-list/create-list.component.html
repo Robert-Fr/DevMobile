@@ -1,34 +1,55 @@
 <ion-header translucent>
   <ion-toolbar>
-    <ion-title>Modal Content</ion-title>
+    <ion-title> {{ 'modal.list.title' | translate }} </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">Close</ion-button>
+      <ion-button (click)="dismissModal()"><ion-icon size="large" name="close-outline"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <form [formGroup]="newListForm" (ngSubmit)="createNewList()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">Name</ion-label>
+      <ion-label position="floating">{{ 'modal.list.inputListName' | translate }}</ion-label>
       <ion-input type="text" name="name" formControlName="name" required></ion-input>
     </ion-item>    
-    <ion-item lines="full">
-      <ion-label position="floating">Email Authorized</ion-label>
-      <ion-input type="text" name="emailAuthorized" formControlName="emailAuthorized"></ion-input>
-    </ion-item>
     <ion-text color="danger" *ngIf="errorControl.name.touched && errorControl.name.errors?.required">
       <span>
-        This field is required
+        {{ 'general.error.fieldRequired' | translate }}
       </span>
     </ion-text>
     <ion-text color="danger" *ngIf="errorControl.name.touched && errorControl.name.errors?.minlength">
       <span>
-        Minimum length 2
+        {{ 'general.error.fieldMinLength' | translate: {number: '2'} }}
       </span>
     </ion-text>
+
+    <ion-item lines="full">
+      <ion-label position="floating">{{ 'modal.list.inputEmail' | translate }}</ion-label>
+      <ion-input type="text" name="emailAuthorized" formControlName="emailAuthorized"></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-radio-group formControlName="radioSettings" *ngIf="errorControl.emailAuthorized.value !== '' && errorControl.emailAuthorized.valid">
+        <ion-list-header>
+          <ion-label>{{ 'modal.list.radioGroupName' | translate }}</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label>{{ 'modal.list.radioWrite' | translate }}</ion-label>
+          <ion-radio slot="start" name="{{ 'modal.list.radioWrite' | translate }}" value="{{ 'modal.list.radioWrite' | translate }}"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>{{ 'modal.list.radioRead' | translate }}</ion-label>
+          <ion-radio  slot="start" name="{{ 'modal.list.radioRead' | translate }}" value="{{ 'modal.list.radioRead' | translate }}"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+    </ion-list>
+
     <ion-row>
       <ion-col>
-        <ion-button [disabled]="newListForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
+        <ion-button [disabled]="newListForm.invalid" type="submit" color="primary" expand="block">{{ 'modal.list.submitList' | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </form>

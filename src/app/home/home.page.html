@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      {{ 'demo.title' | translate }}
+      {{ 'home.title' | translate }}
     </ion-title>
   </ion-toolbar>
 
@@ -57,6 +57,10 @@
       </ion-item-sliding>
     </ion-list>
 
-    <ion-button class="bottom-btn" expand="block" fill="outline" (click)="openCreateModal()">Add a new list</ion-button>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="openCreateModal()">
+        <ion-icon size="large" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
   </div>
 </ion-content>

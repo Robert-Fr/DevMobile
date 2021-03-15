@@ -8,6 +8,7 @@ import { ListDetailsPageRoutingModule } from './list-details-routing.module';
 
 import { ListDetailsPage } from './list-details.page';
 import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CreateTodoComponent } from 'src/app/modals/create-todo/create-todo.comp
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    TranslateModule,
     ListDetailsPageRoutingModule
   ],
   declarations: [ListDetailsPage, CreateTodoComponent]

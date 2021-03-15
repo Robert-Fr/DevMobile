@@ -3,12 +3,13 @@
         "title": "Liste(s)"
     },
     "general": {
-        "error": {
+        "errors": {
             "fieldMinLength": "La longueur minimal est au moins {{number}} lettres",
+            "fieldMaxLength": "La longueur maximal est {{number}} lettres",
             "fieldRequired": "Ce champ est requis"
         }
     },
-    "modal": {
+    "modals": {
         "list": {
             "title": "Nouvelle Liste",
             "inputListName": "Nom de Liste",
@@ -17,6 +18,12 @@
             "radioWrite": "Ecriture",
             "radioRead": "Lecture",
             "submitList": "Ajouter la Liste"
+        },
+        "todo": {
+            "title": "Nouvelle Tache",
+            "inputTodoName": "Nom de tache",
+            "inputDescription": "Description",
+            "submitTodo": "Ajouter la Tache"
         }
     }
 }

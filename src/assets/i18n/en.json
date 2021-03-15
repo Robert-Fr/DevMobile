@@ -4,12 +4,13 @@
     },
     "general": {
         "close": "close",
-        "error": {
+        "errors": {
             "fieldMinLength": "Minimum length is at least {{number}} characters",
+            "fieldMaxLength": "Maximal length is {{number}} characters",
             "fieldRequired": "This field is required"
         }
     },
-    "modal": {
+    "modals": {
         "list": {
             "title": "New List",
             "inputListName": "List name",
@@ -18,6 +19,12 @@
             "radioWrite": "Write",
             "radioRead": "Read",
             "submitList": "Add List"
+        },
+        "todo": {
+            "title": "New Todo",
+            "inputTodoName": "Todo name",
+            "inputDescription": "Description",
+            "submitTodo": "Add Todo"
         }
     }
 }

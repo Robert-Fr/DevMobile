@@ -21,7 +21,6 @@ export class HomePage implements OnInit {
 
   constructor(private listService: ListService,
      public modalController: ModalController,
-     public translate: TranslateService,
      public authService : AuthentificationService) {
   }
 
@@ -32,7 +31,6 @@ export class HomePage implements OnInit {
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
    // this.lists = this.listService.getAllListsOfUser()
-    this.translate.use('fr');
   }
 
   async openCreateModal(){

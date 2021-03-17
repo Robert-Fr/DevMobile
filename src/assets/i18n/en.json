@@ -3,12 +3,20 @@
         "title": "List(s)"
     },
     "general": {
+        "title": "MyTodoList",
         "close": "close",
         "errors": {
             "fieldMinLength": "Minimum length is at least {{number}} characters",
             "fieldMaxLength": "Maximal length is {{number}} characters",
             "fieldRequired": "This field is required"
         }
+    },
+    "navigation": {
+        "profile": "My Profile",
+        "logout": "LogOut",
+        "lists": "My lists",
+        "english": "English",
+        "french": "French"
     },
     "modals": {
         "list": {

@@ -9,6 +9,13 @@
             "fieldRequired": "Ce champ est requis"
         }
     },
+    "navigation": {
+        "profile": "Mon Profile",
+        "logout": "Se déconnecter",
+        "lists": "Mes listes",
+        "english": "Anglais",
+        "french": "Français"
+    },
     "modals": {
         "list": {
             "title": "Nouvelle Liste",

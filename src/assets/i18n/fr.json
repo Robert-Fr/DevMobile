@@ -1,6 +1,9 @@
 {
     "home": {
-        "title": "Liste(s)"
+        "title": "Liste(s)",
+        "owned" :"Mes listes",
+        "read" : "Liste(s) partagée(s) en lecture",
+        "write" : "Liste(s) partagée(s) en écriture"
     },
     "general": {
         "errors": {

@@ -5,7 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable, Subject } from 'rxjs';
 import { Test } from '../models/test';
 import { AuthentificationService } from './authentification.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { find, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -107,36 +107,35 @@ export class ListService {
     });
   }
 
-  public isReadOnly(list : List) : Observable<boolean>{
+  public isReadOnly(listId : string) : Observable<boolean>{
     return this.listsRead.pipe(
-      map(tab => {
-        if (tab.indexOf(list) != -1)
-          return false;
-
-        else
-          return true;
-      })
+      tap(e=>console.log(e)),
+      map(tab =>{
+        if(tab.find( list => list.id === listId ))
+          return true
+        return false
+      } )
     );
   }
 
-  public isWritable(list : List) : Observable<boolean> {
+  public isWritable(listId : string) : Observable<boolean> {
     return this.listsWrite.pipe(
-      map(tab => {
-        if (tab.indexOf(list) != -1)
-          return false;
-        else
-          return true;
-      })
-    )
+      tap(e=>console.log(e)),
+      map(tab =>{
+        if(tab.find( list => list.id === listId ))
+          return true
+        return false
+      } )
+    );
   }
-  public isOwned(list : List) : Observable<boolean> {
+  public isOwned(listId : string) : Observable<boolean> {
     return this.listsOwned.pipe(
-      map(tab => {
-        if (tab.indexOf(list) != -1)
-          return false;
-        else
-          return true;
-      })
-    )
+      tap(e=>console.log(e)),
+      map(tab =>{
+        if(tab.find( list => list.id === listId ))
+          return true
+        return false
+      } )
+    );
   }
 }

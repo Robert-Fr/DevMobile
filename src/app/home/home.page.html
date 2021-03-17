@@ -20,7 +20,7 @@
 
     <!-- Todo lists owned-->
     <ion-list>
-      <ion-label>OWNED</ion-label>
+      <ion-label>{{ 'home.owned' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsOwned | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
           <ion-label>{{ list.name }}</ion-label>
@@ -36,7 +36,7 @@
 
     <!-- Todo lists read-->
     <ion-list>
-      <ion-label>READ</ion-label>
+      <ion-label>{{ 'home.read' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsRead | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
           <ion-label>{{ list.name }}</ion-label>
@@ -46,7 +46,7 @@
 
     <!-- Todo lists write-->
     <ion-list>
-      <ion-label>WRITE</ion-label>
+      <ion-label>{{ 'home.write' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsWrite | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
           <ion-label>{{ list.name }}</ion-label>

@@ -1,6 +1,9 @@
 {
     "home": {
-        "title": "List(s)"
+        "title": "List(s)",
+        "owned" :"My lists",
+        "read" : "ReadOnly Lists",
+        "write" : "Writable Lists"
     },
     "general": {
         "close": "close",

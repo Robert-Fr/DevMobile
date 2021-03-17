@@ -76,10 +76,23 @@ export class ListService {
   }
 
 
-  delete(list : List){
-    this.listsCollection
-    .doc(list.id)
-    .delete()
+  async delete(list : List){
+    //on supprime tous les todos de la nested collection:
+    // on récupère un observable sur une querysnapshot de document (les todos de la liste que l'on veut supprimer)
+    const querySnapshotTodosDocs = this.listsCollection.doc(list.id).collection("todos").ref.get();
+    //Une fois qu'on a une snapshot sur les documents
+    querySnapshotTodosDocs.then(
+      async querySnapshot => { 
+        //on supprime chacun des documents en prenant sa reference
+        const promiseDocDeleted = querySnapshot.docs.map(
+        doc => doc.ref.delete()
+        )
+        //on attend que toutes les suppressions soient finies
+        await Promise.all(promiseDocDeleted)
+      }
+    )
+    //on peut maintenant supprimer la liste
+    this.listsCollection.doc(list.id).delete()
   }
 
   addTodo(todo: Todo, listId: string){

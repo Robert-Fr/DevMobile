@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import 'firebase/auth';
 import { Router } from '@angular/router';
-import { emailVerified, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { BehaviorSubject, pipe } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
+import { BehaviorSubject } from 'rxjs';
+import '@codetrix-studio/capacitor-google-auth';
+import { Plugins } from '@capacitor/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 
@@ -29,7 +29,12 @@ export class AuthentificationService {
       })
     }
 
-
+  public async googleSignup() {
+    const googleUser = await Plugins.GoogleAuth.signIn(null) as any;
+    console.log('my user: ', googleUser);
+    // this.user.next(googleUser);
+  }
+  
   public async login(email: string, psw: string){
     return await this.afAuth.signInWithEmailAndPassword(email,psw)
   }

@@ -60,6 +60,10 @@ export class LoginPage implements OnInit {
     };
   }
 
+  async googleSignup() {
+    await this.authentificationService.googleSignup();
+  }
+
   get errorControl() {
     return this.loginForm.controls;
   }

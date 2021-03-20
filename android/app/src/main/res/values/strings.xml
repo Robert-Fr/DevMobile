@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Todo</string>
+    <string name="title_activity_main">Todo</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="server_client_id">1041721209469-ejrcl5sm4s3kp311qno8s4031s8t35re.apps.googleusercontent.com</string>
+</resources>

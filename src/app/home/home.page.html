@@ -20,7 +20,7 @@
         [(ngModel)]="selectedType" 
         (ionChange)="onTypeSelectorChange($event)" 
         inteface="action-sheet">
-          <ion-select-option *ngFor="let type of listsTypes" [value]=type.id>{{type.name}}</ion-select-option>
+          <ion-select-option *ngFor="let type of listsTypes" [value]=type.id>{{type.name | translate}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-item>

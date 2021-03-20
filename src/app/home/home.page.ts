@@ -27,7 +27,6 @@ export class HomePage implements OnInit {
      public translate: TranslateService,
      public authService : AuthentificationService,
      private platform:Platform) {
-       this.translate.use('fr');
        this.platform.ready().then(() =>{
         this.listsTypes= [ 
         {id:1 , name: this.translate.instant('general.select_list_type.all') },

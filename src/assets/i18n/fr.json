@@ -19,6 +19,13 @@
             "select_list" : "Selectionner le type de liste"
         }
     },
+    "navigation": {
+        "profile": "Mon Profile",
+        "logout": "Se déconnecter",
+        "lists": "Mes listes",
+        "english": "Anglais",
+        "french": "Français"
+    },
     "modals": {
         "list": {
             "title": "Nouvelle Liste",

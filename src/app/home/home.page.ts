@@ -45,7 +45,6 @@ export class HomePage implements OnInit {
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
    // this.lists = this.listService.getAllListsOfUser()
-    
   }
 
   async openCreateModal(){

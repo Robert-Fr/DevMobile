@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>{{ ( list | async)?.name }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu" auto-hide="false"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
  <!-- petite verification de sureté au cas ou on aurait stoqué l'id de la liste quelque part, et on nous a enlevé les droit entre temps et qu'on essaye d'acceder a la liste en forcant l'url -->

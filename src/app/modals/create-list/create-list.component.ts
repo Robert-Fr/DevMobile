@@ -59,7 +59,7 @@ export class CreateListComponent implements OnInit {
             if (!email) {
               await this.presentToast()
             } else { 
-              const list = new List(this.newListForm.get('name').value,this.authService.userCredential.user.email)
+              const list = new List(this.newListForm.get('name').value,this.authService.user.value.email)
               if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioWrite')) {
                 list.writers.push(email)
               } else if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioRead')) {
@@ -71,7 +71,7 @@ export class CreateListComponent implements OnInit {
           }
         })
       } else {
-        this.listService.create(new List(this.newListForm.get('name').value,this.authService.userCredential.user.email))
+        this.listService.create(new List(this.newListForm.get('name').value,this.authService.user.value.email))
         this.dismissModal()
       }
     }

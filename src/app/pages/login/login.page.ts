@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
   async login(): Promise<void> {
     try {
       const userCred = await this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);
-      this.authentificationService.userCredential = userCred
+      //this.authentificationService.userCredential = userCred
       if (userCred.user.emailVerified) {
         const toast = await this.toastController.create({
           color: "success",

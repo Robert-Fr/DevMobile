@@ -31,23 +31,23 @@ export class ListService {
   }
 
   getListsOwned() {
-    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner', '==', this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner', '==', this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
   }
 
   getListsICanRead() {
-    const obs = this.afs.collection<List>('Lists', ref => ref.where('readers',"array-contains" ,this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('readers',"array-contains" ,this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
   }
 
   getListsICanWrite(){
-    const obs = this.afs.collection<List>('Lists', ref => ref.where('writers',"array-contains" ,this.authService.userCredential.user.email)).valueChanges({ idField: 'id' })
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('writers',"array-contains" ,this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
   }
 
   getAllListsOfUser(){
     //TODO
-    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner',"==" ,this.authService.userCredential.user.email)).valueChanges()
+    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner',"==" ,this.authService.user.value.email)).valueChanges()
     return obs
   }
 

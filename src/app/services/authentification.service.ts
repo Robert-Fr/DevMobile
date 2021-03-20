@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import firebase from 'firebase/app';
 import { FirebaseAuthentication } from '@ionic-native/firebase-authentication/ngx';
 import 'firebase/auth';
 import { Router } from '@angular/router';
 import { emailVerified, redirectLoggedInTo, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
-import { pipe } from 'rxjs';
+import { BehaviorSubject, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase';
 
 
 
@@ -17,26 +18,36 @@ export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home'])
 })
 export class AuthentificationService {
 
-  public userCredential : firebase.auth.UserCredential | undefined; // Save logged in user data
+  public user : BehaviorSubject<firebase.default.User>; // Save logged in user data
 
-  constructor(private router : Router ){}
+  constructor(private router : Router,
+    private afAuth : AngularFireAuth ){
+      this.user = new BehaviorSubject(null)
+      this.afAuth.onAuthStateChanged(user => {
+        this.router.navigateByUrl('home')
+        this.user.next(user)
+      })
+    }
 
 
   public async login(email: string, psw: string){
-    const userCred  = await firebase.auth().signInWithEmailAndPassword(email,psw)
-    return userCred
+    return await this.afAuth.signInWithEmailAndPassword(email,psw)
+  }
+
+  async signInAndRetrieveDataWithCredential (credential :firebase.default.auth.AuthCredential){
+    return await this.afAuth.signInAndRetrieveDataWithCredential(credential)
   }
 
   public async createUser(email: string, psw: string){
     //Je renvoie la promise pour pouvoir l'utiliser dans la page "register"
-    const userCred = await firebase.auth().createUserWithEmailAndPassword(email, psw)
+    const userCred = await this.afAuth.createUserWithEmailAndPassword(email, psw)
     //Avant de connecter l'utilisateur on lui envoie le mail de verification et on attend qu'il ait validé son mail
     await userCred.user.sendEmailVerification()
     return userCred
   }
 
   public signOut (){
-    firebase.auth().signOut().then(() => {
+    this.afAuth.signOut().then(() => {
       console.log("Signed out !")
       this.router.navigate(['login'])
     })
@@ -44,6 +55,6 @@ export class AuthentificationService {
 
   public async recoverPassword (email : string) : Promise <void>{
     //Je renvoie la promise pour pouvoir l'utiliser dans la page "password-recovery"
-    return await firebase.auth().sendPasswordResetEmail(email)
+    return await this.afAuth.sendPasswordResetEmail(email)
   }
 }

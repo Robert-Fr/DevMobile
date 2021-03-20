@@ -17,9 +17,21 @@
 
 <ion-content [fullscreen]="true">
   <div id="container">
-
+    <ion-item>
+      <ion-item>
+        <ion-select 
+        value="All" 
+        multiple="false" 
+        placeholder="{{ 'general.select_list_type.select_list' | translate }}" 
+        [(ngModel)]="selectedType" 
+        (ionChange)="onTypeSelectorChange($event)" 
+        inteface="action-sheet">
+          <ion-select-option *ngFor="let type of listsTypes" [value]=type.id>{{type.name}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-item>
     <!-- Todo lists owned-->
-    <ion-list>
+    <ion-list *ngIf="selectedType == 1 || selectedType == 2">
       <ion-label>{{ 'home.owned' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsOwned | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
@@ -35,7 +47,7 @@
     </ion-list>
 
     <!-- Todo lists read-->
-    <ion-list>
+    <ion-list *ngIf="selectedType == 1 || selectedType == 4" >
       <ion-label>{{ 'home.read' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsRead | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
@@ -45,7 +57,7 @@
     </ion-list>
 
     <!-- Todo lists write-->
-    <ion-list>
+    <ion-list *ngIf="selectedType == 1 || selectedType == 3">
       <ion-label>{{ 'home.write' | translate }}</ion-label>
       <ion-item-sliding *ngFor="let list of listsWrite | async">
         <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">

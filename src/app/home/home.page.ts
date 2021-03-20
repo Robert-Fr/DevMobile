@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthentificationService } from '../services/authentification.service';
 import { Observable } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import {Platform} from '@ionic/angular'
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,24 @@ export class HomePage implements OnInit {
   public listsOwned: Observable<List[]>;
   public listsRead: Observable<List[]>;
   public listsWrite: Observable<List[]>;
+  public selectedType : number =1;
+  public listsTypes : any[]=[]
 
 
   constructor(private listService: ListService,
      public modalController: ModalController,
      public translate: TranslateService,
-     public authService : AuthentificationService) {
+     public authService : AuthentificationService,
+     private platform:Platform) {
+       this.translate.use('fr');
+       this.platform.ready().then(() =>{
+        this.listsTypes= [ 
+        {id:1 , name: this.translate.instant('general.select_list_type.all') },
+        {id:2 , name: this.translate.instant('general.select_list_type.owned')},
+        {id:3 , name: this.translate.instant('general.select_list_type.write')},
+        {id:4 , name: this.translate.instant('general.select_list_type.read')}
+        ]
+       })
   }
 
   ngOnInit(){
@@ -32,7 +45,7 @@ export class HomePage implements OnInit {
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
    // this.lists = this.listService.getAllListsOfUser()
-    this.translate.use('fr');
+    
   }
 
   async openCreateModal(){
@@ -48,5 +61,9 @@ export class HomePage implements OnInit {
 
   public signOut() : void {
     this.authService.signOut();
+  }
+
+  onTypeSelectorChange(event){
+    console.log("type selected : "+event.target.value)
   }
 }

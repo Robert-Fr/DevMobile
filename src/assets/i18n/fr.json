@@ -10,6 +10,13 @@
             "fieldMinLength": "La longueur minimal est au moins {{number}} lettres",
             "fieldMaxLength": "La longueur maximal est {{number}} lettres",
             "fieldRequired": "Ce champ est requis"
+        },
+        "select_list_type" : {
+            "owned" :"Crées",
+            "read" : "Lecture",
+            "write" : "Ecriture",
+            "all" : "Toutes",
+            "select_list" : "Selectionner le type de liste"
         }
     },
     "modals": {

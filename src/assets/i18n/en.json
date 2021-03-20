@@ -2,8 +2,8 @@
     "home": {
         "title": "List(s)",
         "owned" :"My lists",
-        "read" : "ReadOnly Lists",
-        "write" : "Writable Lists"
+        "read" : "ReadOnly lists",
+        "write" : "Writable lists"
     },
     "general": {
         "close": "close",
@@ -11,6 +11,13 @@
             "fieldMinLength": "Minimum length is at least {{number}} characters",
             "fieldMaxLength": "Maximal length is {{number}} characters",
             "fieldRequired": "This field is required"
+        },
+        "select_list_type" : {
+            "owned" :"Owned",
+            "read" : "Read",
+            "write" : "Write",
+            "all" : "All",
+            "select_list" : "Select the type of list"
         }
     },
     "modals": {

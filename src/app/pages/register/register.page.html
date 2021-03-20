@@ -1,38 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>{{ 'general.title' | translate }}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
-    <a routerLink='/login'>Already registered ?</a>
-  </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
+  <ion-text color="primary" class="ion-text-center" >
+    <h1>{{ 'register.title' | translate }}</h1>
+  </ion-text>
   <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{ 'register.inputLogin' | translate }}</ion-label>
       <ion-input type="text" name="email" formControlName="email" required></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorControl.email.touched && errorControl.email.errors?.required">
       <span>
-        This field is required
+        {{ 'general.errors.fieldRequired' | translate }}
       </span>
     </ion-text>
 
     <ion-item lines="full">
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{ 'register.inputPassword' | translate }}</ion-label>
       <ion-input type="password" name="password" formControlName="password" required></ion-input>
     </ion-item>
     <ion-text color="danger" *ngIf="errorControl.password.touched && errorControl.password.errors?.required">
       <span>
-        This field is required
+        {{ 'general.errors.fieldRequired' | translate }}
       </span>
     </ion-text>
     <ion-row>
       <ion-col>
-        <ion-button [disabled]="registerForm.invalid" type="submit" color="primary" expand="block">Submit</ion-button>
+        <ion-button [disabled]="registerForm.invalid" type="submit" color="primary" expand="block">{{ 'register.submitregister' | translate }}</ion-button>
       </ion-col>
     </ion-row>
   </form>

@@ -7,7 +7,9 @@
     },
     "general": {
         "title": "MyTodoList",
-        "close": "close",
+        "welcome": "Welcome",
+        "cancel": "Cancel",
+        "close": "Close",
         "errors": {
             "fieldMinLength": "Minimum length is at least {{number}} characters",
             "fieldMaxLength": "Maximal length is {{number}} characters",
@@ -20,6 +22,24 @@
             "all" : "All",
             "select_list" : "Select the type of list"
         }
+    },
+    "login": {
+        "inputLogin": "Email",
+        "inputPassword": "Password",
+        "registerNow": "Not registered yet ?",
+        "passwordRecovery": "Forgotten password ?",
+        "submitLogin": "Login"
+    },
+    "register": {
+        "title": "Register",
+        "inputLogin": "Email",
+        "inputPassword": "Password",
+        "submitregister": "Register"
+    },
+    "passwordRecovery": {
+        "title": "Passowrd Recovery",
+        "inputLogin": "Email",
+        "submitregister": "Send Email"
     },
     "navigation": {
         "profile": "My Profile",

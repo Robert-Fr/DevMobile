@@ -6,6 +6,10 @@
         "write" : "Liste(s) partagée(s) en écriture"
     },
     "general": {
+        "title": "MyTodoList",
+        "welcome": "Bienvenue",
+        "cancel": "Annluer",
+        "close": "fermer",
         "errors": {
             "fieldMinLength": "La longueur minimal est au moins {{number}} lettres",
             "fieldMaxLength": "La longueur maximal est {{number}} lettres",
@@ -18,6 +22,24 @@
             "all" : "Toutes",
             "select_list" : "Selectionner le type de liste"
         }
+    },
+    "login": {
+        "inputLogin": "Login",
+        "inputPassword": "Mot de passe",
+        "registerNow": "Pas encore enregistrer ?",
+        "passwordRecovery": "Mot de passe oublié ?",
+        "submitLogin": "Connexion"
+    },
+    "register": {
+        "title": "S'enregistrer",
+        "inputLogin": "Email",
+        "inputPassword": "Mot de Passe",
+        "submitregister": "Valider"
+    },
+    "passwordRecovery": {
+        "title": "Récupérer votre Mot de Passe",
+        "inputLogin": "Email",
+        "submitregister": "Envoi Email"
     },
     "navigation": {
         "profile": "Mon Profile",

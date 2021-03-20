@@ -21,22 +21,24 @@
         <ion-item *ngIf="userMenuOpen">
           <ion-label class="ion-text-center">{{ 'navigation.logout' | translate }}</ion-label>
         </ion-item>
-    </ion-menu-toggle>
-    <ion-menu-toggle>
-      <ion-item [routerLink]="['home']">
-        <ion-icon name="list-outline" slot="start"></ion-icon>
-        <ion-label>{{ 'navigation.lists' | translate }}</ion-label>
-      </ion-item>   
-    </ion-menu-toggle>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item [routerLink]="['home']">
+          <ion-icon name="list-outline" slot="start"></ion-icon>
+          <ion-label>{{ 'navigation.lists' | translate }}</ion-label>
+        </ion-item>   
+      </ion-menu-toggle>
     </ion-list>
   </ion-content>
 
   <ion-footer>
     <ion-toolbar>
-      <ion-item class="ion-text-center">
-        <ion-label (click)="onEnglish()">{{ 'navigation.english' | translate }}</ion-label>
-        <ion-label (click)="onFrench()">{{ 'navigation.french' | translate }}</ion-label>
-      </ion-item> 
+      <ion-menu-toggle>
+        <ion-item class="ion-text-center">
+          <ion-label (click)="onEnglish()">{{ 'navigation.english' | translate }}</ion-label>
+          <ion-label (click)="onFrench()">{{ 'navigation.french' | translate }}</ion-label>
+        </ion-item> 
+      </ion-menu-toggle>
     </ion-toolbar>
   </ion-footer>
 </ion-menu>

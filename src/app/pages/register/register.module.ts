@@ -8,6 +8,7 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 
 import { RegisterPage } from './register.page';
 import { PromiseMessageDisplayerModule } from 'src/app/shared/components/promise-message-displayer/promise-message-displayer.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { PromiseMessageDisplayerModule } from 'src/app/shared/components/promise
     FormsModule,
     IonicModule,
     RegisterPageRoutingModule,
+    TranslateModule,
     ReactiveFormsModule,
     PromiseMessageDisplayerModule
   ],

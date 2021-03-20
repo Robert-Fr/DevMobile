@@ -9,6 +9,7 @@ import { PasswordRecoveryPageRoutingModule } from './password-recovery-routing.m
 import { PasswordRecoveryPage } from './password-recovery.page';
 import { PromiseMessageDisplayerComponent } from 'src/app/shared/components/promise-message-displayer/promise-message-displayer.component';
 import { PromiseMessageDisplayerModule } from 'src/app/shared/components/promise-message-displayer/promise-message-displayer.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { PromiseMessageDisplayerModule } from 'src/app/shared/components/promise
     FormsModule,
     IonicModule,
     PasswordRecoveryPageRoutingModule,
+    TranslateModule,
     ReactiveFormsModule,
     PromiseMessageDisplayerModule
   ],

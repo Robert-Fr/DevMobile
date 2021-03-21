@@ -29,10 +29,11 @@ export class AuthentificationService {
       })
     }
 
+
   public async googleSignup() {
-    const googleUser = await Plugins.GoogleAuth.signIn(null) as any;
-    console.log('my user: ', googleUser);
-    // this.user.next(googleUser);
+    const googleUser = await Plugins.GoogleAuth.signIn();
+    const credential = firebase.default.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
+    this.afAuth.signInAndRetrieveDataWithCredential(credential);
   }
   
   public async login(email: string, psw: string){

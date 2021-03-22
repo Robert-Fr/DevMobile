@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   public listsRead: Observable<List[]>;
   public listsWrite: Observable<List[]>;
   public selectedType : number =1;
-  public listsTypes : any[]=[]
+  public listsTypes : any[4]=[]
 
 
   constructor(private listService: ListService,
@@ -28,18 +28,8 @@ export class HomePage implements OnInit {
      public authService : AuthentificationService,
      private platform:Platform) {
        this.platform.ready().then(() =>{
-        this.listsTypes= [ 
-        {id:1 , name: "bambi" },
-        {id:2 , name: this.translate.instant('general.select_list_type.owned')},
-        {id:3 , name: this.translate.instant('general.select_list_type.write')},
-        {id:4 , name: this.translate.instant('general.select_list_type.read')}
-        ]
-       }) 
-       this.translate.get('general.select_list_type.all').subscribe((res: string) => {
-        console.log(res);
-        this.listsTypes[this.listsTypes.indexOf({id:1 , name: "bambi" })].name=res;
-        //=> 'hello world'
-      })
+        this.loadSelector()
+       })
       }
 
   ngOnInit(){
@@ -49,6 +39,30 @@ export class HomePage implements OnInit {
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
    // this.lists = this.listService.getAllListsOfUser()
+  }
+
+  loadSelector(){
+    this.translate.stream('general.select_list_type.all').subscribe( s=> {
+      this.listsTypes[0]={id:1 , name: s}
+      console.log("changement trad");
+    })
+    this.translate.stream('general.select_list_type.owned').subscribe( s=> {
+      this.listsTypes[1]={id:2 , name: s}
+    })
+    this.translate.stream('general.select_list_type.write').subscribe( s=> {
+      this.listsTypes[2]={id:3 , name: s}
+    })
+    this.translate.stream('general.select_list_type.read').subscribe( s=> {
+      this.listsTypes[3]={id:4 , name: s}
+    })
+    /*
+    this.listsTypes= [ 
+      {id:1 , name: this.translate.stream('general.select_list_type.all').pipe( n => n) },
+      {id:2 , name: this.translate.stream('general.select_list_type.owned')},
+      {id:3 , name: this.translate.stream('general.select_list_type.write')},
+      {id:4 , name: this.translate.stream('general.select_list_type.read')}
+      ]
+    */
   }
 
   async openCreateModal(){

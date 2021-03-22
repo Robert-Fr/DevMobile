@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { User } from 'src/app/models/user';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
@@ -18,6 +18,7 @@ export class RegisterPage implements OnInit {
   constructor(private fb: FormBuilder,
     private authService: AuthentificationService,
     private router: Router,
+    private menu: MenuController,
     private toastController: ToastController,
     private userService : UserService) { }
 
@@ -26,6 +27,15 @@ export class RegisterPage implements OnInit {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     })
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    // enable the root left menu when leaving the tutorial page
+    this.menu.enable(true);
   }
 
   async register() {

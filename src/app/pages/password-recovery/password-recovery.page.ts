@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 
 @Component({
@@ -20,6 +20,7 @@ export class PasswordRecoveryPage implements OnInit {
   constructor(private fb : FormBuilder,
     private authService : AuthentificationService,
     private router : Router,
+    private menu: MenuController,
     private toastController : ToastController) { }
 
   ngOnInit() {
@@ -29,6 +30,15 @@ export class PasswordRecoveryPage implements OnInit {
     this.isError=false
     this.isDisplay =false
     this.message = ''
+  }
+
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    // enable the root left menu when leaving the tutorial page
+    this.menu.enable(true);
   }
 
 

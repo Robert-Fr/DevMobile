@@ -7,6 +7,8 @@ import '@codetrix-studio/capacitor-google-auth';
 import { Plugins } from '@capacitor/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { User } from '../models/user';
+import { UserService } from './user.service';
 
 
 
@@ -21,6 +23,7 @@ export class AuthentificationService {
   public user : BehaviorSubject<firebase.default.User>; // Save logged in user data
 
   constructor(private router : Router,
+    private userService: UserService,
     private afAuth : AngularFireAuth ){
       this.user = new BehaviorSubject(null)
       this.afAuth.onAuthStateChanged(user => {
@@ -31,9 +34,11 @@ export class AuthentificationService {
 
 
   public async googleSignup() {
-    const googleUser = await Plugins.GoogleAuth.signIn();
-    const credential = firebase.default.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken);
-    this.afAuth.signInAndRetrieveDataWithCredential(credential);
+    const googleUser = await Plugins.GoogleAuth.signIn()
+    const newUser = new User(googleUser.id,googleUser.email,googleUser.name, googleUser.imageUrl, true)
+    this.userService.addUser(newUser)
+    const credential = firebase.default.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken)
+    this.afAuth.signInAndRetrieveDataWithCredential(credential)
   }
   
   public async login(email: string, psw: string){

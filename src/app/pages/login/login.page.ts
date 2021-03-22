@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController, ToastController } from '@ionic/angular';
+import { MenuController, ModalController, ToastController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthentificationService } from 'src/app/services/authentification.service';
@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authentificationService: AuthentificationService,
     private router: Router,
+    private menu: MenuController,
     private toastController: ToastController) { }
 
   ngOnInit() {
@@ -27,6 +28,15 @@ export class LoginPage implements OnInit {
     })
   }
 
+  ionViewWillEnter() {
+    this.menu.enable(false);
+  }
+
+  ionViewDidLeave() {
+    // enable the root left menu when leaving the tutorial page
+    this.menu.enable(true);
+  }
+  
   async login(): Promise<void> {
     try {
       const userCred = await this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);

@@ -85,8 +85,12 @@ export class HomePage implements OnInit {
     const segments = document.querySelectorAll('ion-segment')
     for (let i = 0; i < segments.length; i++) {
       segments[i].addEventListener('ionChange', (ev) => {
-        this.selectedType=ev.target.value
+        //this.selectedType=ev.target.value
       })
-}
+} 
   }
+
+mashallah(event){
+  this.selectedType=event.target.value
+}
 }

@@ -109,14 +109,21 @@ export class ListService {
 
   deleteTodo(todo: Todo, listId: string) {
     const list = this.getOne(listId);
-
     this.listsCollection
       .doc(listId)
       .collection<Todo>('todos')
       .doc(todo.id)
       .delete()
   }
-
+  
+  updateTodo(todo: Todo, listId: string) {
+    const list = this.getOne(listId);
+    this.listsCollection
+      .doc(listId)
+      .collection<Todo>('todos')
+      .doc(todo.id)
+      .update(Object.assign({}, todo))
+  }
   private converSnapshotData<T>(actions) {
     return actions.map(a => {
       const id = a.payload.doc.id;
@@ -127,7 +134,6 @@ export class ListService {
 
   public isReadOnly(listId: string): Observable<boolean> {
     return this.listsRead.pipe(
-      tap(e => console.log(e)),
       map(tab => {
         if (tab.find(list => list.id === listId))
           return true
@@ -138,7 +144,6 @@ export class ListService {
 
   public isWritable(listId: string): Observable<boolean> {
     return this.listsWrite.pipe(
-      tap(e => console.log(e)),
       map(tab => {
         if (tab.find(list => list.id === listId))
           return true
@@ -148,7 +153,6 @@ export class ListService {
   }
   public isOwned(listId: string): Observable<boolean> {
     return this.listsOwned.pipe(
-      tap(e => console.log(e)),
       map(tab => {
         if (tab.find(list => list.id === listId))
           return true

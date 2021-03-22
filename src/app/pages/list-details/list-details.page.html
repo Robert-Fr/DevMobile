@@ -14,12 +14,13 @@
       <ion-item>
         <ion-label>{{ todo.name }}</ion-label>
       </ion-item>
-      <!-- On ne peut supprimer un todo de la liste que si on est en droit d"ecriture / proprietaire-->
+      <!-- On ne peut supprimer un todo de la liste que si on est en droit d"ecriture / proprietaire <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">  -->
       <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">
         <ion-item-option (click)="delete(todo)" color="danger">
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
+      <ion-checkbox checked="todo.isDone" color="primary" (ionChange)="updateTodo(todo)"></ion-checkbox>
     </ion-item-sliding>
   </ion-list>
   <!-- On ne peut ajouter un todo dans la liste que si on est en droit d"ecriture / proprietaire-->

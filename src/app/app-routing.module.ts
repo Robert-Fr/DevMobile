@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard,canActivate,emailVerified } from '@angular/fire/auth-guard';
 import { redirectAuthorizedToHome, redirectUnauthorizedToLogin } from './services/authentification.service';
+import { AuthGuardGuard } from './guards/auth-guard.guard';
 
 
 const routes: Routes = [
@@ -17,12 +18,12 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
-    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AuthGuardGuard] 
   },
   {
     path: 'list-details/:listId',
     loadChildren: () => import('./pages/list-details/list-details.module').then( m => m.ListDetailsPageModule),
-    canActivate: [AngularFireAuthGuard] ,data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AuthGuardGuard] 
   },
   {
     path: 'register',

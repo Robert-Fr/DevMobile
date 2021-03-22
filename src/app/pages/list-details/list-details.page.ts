@@ -43,4 +43,8 @@ export class ListDetailsPage implements OnInit {
       this.listService.deleteTodo(todo, this.listId);
   }
 
+  updateTodo(todo){
+    this.listService.updateTodo(todo, this.listId)
+  }
+
 }

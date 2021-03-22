@@ -44,7 +44,10 @@ export class AuthentificationService {
   public async login(email: string, psw: string){
     return await this.afAuth.signInWithEmailAndPassword(email,psw)
   }
-
+  
+  public getCurrentUser(){
+    return this.user.asObservable()
+  }
   async signInAndRetrieveDataWithCredential (credential :firebase.default.auth.AuthCredential){
     return await this.afAuth.signInAndRetrieveDataWithCredential(credential)
   }

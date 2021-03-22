@@ -40,6 +40,7 @@ export class MenuComponent implements OnInit {
   public onFrench() {
     this.translate.use('fr');
   }
+
   public onClose() {
     this.userMenuOpen = false;
   }

@@ -43,4 +43,11 @@
   <ion-toolbar>
     <a routerLink='/password-recovery'>{{ 'login.passwordRecovery' | translate }}</a>
   </ion-toolbar>
+
+  <ion-footer>
+    <ion-item class="ion-text-center">
+      <ion-label (click)="onEnglish()">{{ 'navigation.english' | translate }}</ion-label>
+      <ion-label (click)="onFrench()">{{ 'navigation.french' | translate }}</ion-label>
+    </ion-item> 
+  </ion-footer>
 </ion-content>

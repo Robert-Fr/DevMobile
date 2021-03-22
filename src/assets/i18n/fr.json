@@ -28,17 +28,21 @@
         "inputPassword": "Mot de passe",
         "registerNow": "Pas encore enregistrer ?",
         "passwordRecovery": "Mot de passe oublié ?",
+        "toastLoginSucess": "Connection réussie",
+        "toastLoginNotVerified": "Cet email n'est pas vérifiez... Vérifiez vos mails.",
         "submitLogin": "Connexion"
     },
     "register": {
         "title": "S'enregistrer",
         "inputLogin": "Email",
         "inputPassword": "Mot de Passe",
+        "toastVerify": "Création de compte réussi ! un email de confirmation a été envoyé à {{email}}",
         "submitregister": "Valider"
     },
     "passwordRecovery": {
         "title": "Récupérer votre Mot de Passe",
         "inputLogin": "Email",
+        "toastEmailSend": "Un email a été envoyé à {{email}} pour choisir un nouveau mot de passe",
         "submitregister": "Envoi Email"
     },
     "navigation": {

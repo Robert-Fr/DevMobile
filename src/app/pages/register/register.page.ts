@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { User } from 'src/app/models/user';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
@@ -19,6 +20,7 @@ export class RegisterPage implements OnInit {
     private authService: AuthentificationService,
     private router: Router,
     private menu: MenuController,
+    public translate: TranslateService,
     private toastController: ToastController,
     private userService : UserService) { }
 
@@ -45,7 +47,7 @@ export class RegisterPage implements OnInit {
       const toast = await this.toastController.create({
         color: 'success',
         duration: 5000,
-        message: `You registered successfully ! An email confirmation as been sent to ${this.authService.user.value.email}`
+        message: this.translate.instant('register.toastVerify', { email: this.authService.user.value.email })
       });
       await toast.present();
       //Si le compte a été crée avec succès on enregistre le UID dans firestore dans la collection "Users"

@@ -28,17 +28,21 @@
         "inputPassword": "Password",
         "registerNow": "Not registered yet ?",
         "passwordRecovery": "Forgotten password ?",
+        "toastLoginSucess": "Login successful",
+        "toastLoginNotVerified": "This email isn't verified... check your mail box",
         "submitLogin": "Login"
     },
     "register": {
         "title": "Register",
         "inputLogin": "Email",
         "inputPassword": "Password",
+        "toastVerify": "You registered successfully ! An email confirmation as been sent to {{email}}",
         "submitregister": "Register"
     },
     "passwordRecovery": {
         "title": "Passowrd Recovery",
         "inputLogin": "Email",
+        "toastEmailSend": "A mail as been sent to {{email}} to recover the password",
         "submitregister": "Send Email"
     },
     "navigation": {

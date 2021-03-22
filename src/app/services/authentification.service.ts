@@ -7,6 +7,7 @@ import { BehaviorSubject, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
+import { ListService } from './list.service';
 
 
 
@@ -21,7 +22,7 @@ export class AuthentificationService {
   public user : BehaviorSubject<firebase.default.User>; // Save logged in user data
 
   constructor(private router : Router,
-    private afAuth : AngularFireAuth ){
+    private afAuth : AngularFireAuth){
       this.user = new BehaviorSubject(null)
       this.afAuth.onAuthStateChanged(user => {
         this.router.navigateByUrl('home')
@@ -33,7 +34,10 @@ export class AuthentificationService {
   public async login(email: string, psw: string){
     return await this.afAuth.signInWithEmailAndPassword(email,psw)
   }
-
+  
+  public getCurrentUser(){
+    return this.user.asObservable()
+  }
   async signInAndRetrieveDataWithCredential (credential :firebase.default.auth.AuthCredential){
     return await this.afAuth.signInAndRetrieveDataWithCredential(credential)
   }

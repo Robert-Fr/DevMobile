@@ -14,7 +14,7 @@
       <ion-item>
         <ion-label>{{ todo.name }}</ion-label>
       </ion-item>
-      <!-- On ne peut supprimer un todo de la liste que si on est en droit d"ecriture / proprietaire-->
+      <!-- On ne peut supprimer un todo de la liste que si on est en droit d"ecriture / proprietaire <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">  -->
       <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">
         <ion-item-option (click)="delete(todo)" color="danger">
           <ion-icon slot="icon-only" name="trash"></ion-icon>

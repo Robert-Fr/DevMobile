@@ -29,7 +29,7 @@ export class HomePage implements OnInit {
      private platform:Platform) {
        this.platform.ready().then(() =>{
         this.listsTypes= [ 
-        {id:1 , name: "bambi" },
+        {id:1 , name: this.translate.instant('general.select_list_type.all') },
         {id:2 , name: this.translate.instant('general.select_list_type.owned')},
         {id:3 , name: this.translate.instant('general.select_list_type.write')},
         {id:4 , name: this.translate.instant('general.select_list_type.read')}
@@ -37,7 +37,6 @@ export class HomePage implements OnInit {
        }) 
        this.translate.get('general.select_list_type.all').subscribe((res: string) => {
         console.log(res);
-        this.listsTypes[this.listsTypes.indexOf({id:1 , name: "bambi" })].name=res;
         //=> 'hello world'
       })
       }

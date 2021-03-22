@@ -13,15 +13,11 @@
   <div id="container">
     <ion-item>
       <ion-item>
-        <ion-select 
-        value="All" 
-        multiple="false" 
-        placeholder="{{ 'general.select_list_type.select_list' | translate }}" 
-        [(ngModel)]="selectedType" 
-        (ionChange)="onTypeSelectorChange($event)" 
-        inteface="action-sheet">
-          <ion-select-option *ngFor="let type of listsTypes" [value]=type.id>{{type.name | translate}}</ion-select-option>
-        </ion-select>
+        <ion-segment value=1>
+          <ion-segment-button *ngFor="let type of listsTypes" [value]=type.id>
+            <ion-label>{{type.name | translate}}</ion-label>
+          </ion-segment-button>
+        </ion-segment>
       </ion-item>
     </ion-item>
     <!-- Todo lists owned-->

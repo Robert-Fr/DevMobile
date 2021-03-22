@@ -39,6 +39,7 @@ export class HomePage implements OnInit {
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
    // this.lists = this.listService.getAllListsOfUser()
+    this.listenSegmentUpdates()
   }
 
   loadSelector(){
@@ -80,7 +81,12 @@ export class HomePage implements OnInit {
     this.authService.signOut();
   }
 
-  onTypeSelectorChange(event){
-    console.log("type selected : "+event.target.value)
+  listenSegmentUpdates(){
+    const segments = document.querySelectorAll('ion-segment')
+    for (let i = 0; i < segments.length; i++) {
+      segments[i].addEventListener('ionChange', (ev) => {
+        this.selectedType=ev.target.value
+      })
+}
   }
 }

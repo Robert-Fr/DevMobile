@@ -33,6 +33,12 @@ export class ListService {
       this.listsRead = this.getListsICanRead()
       this.listsWrite = this.getListsICanWrite()
     }
+    else{
+
+      this.listsOwned = this.getListsOwned()
+      this.listsRead = this.getListsICanRead()
+      this.listsWrite = this.getListsICanWrite()
+    }
   }
 
   getListsOwned() {

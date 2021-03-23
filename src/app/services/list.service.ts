@@ -3,15 +3,15 @@ import { List } from '../models/list';
 import { Todo } from '../models/todo';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable, Subject } from 'rxjs';
-import { Test } from '../models/test';
 import { AuthentificationService } from './authentification.service';
-import { find, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListService {
+
+export class ListService  {
   public listsOwned: Observable<List[]>;
   public listsRead: Observable<List[]>;
   public listsWrite: Observable<List[]>;
@@ -23,7 +23,9 @@ export class ListService {
     this.listsCollection = afs.collection<List>('Lists')
     this.getAll()
     this.afAuth.onAuthStateChanged(user => {
-      this.getAll();
+      if(user) {
+        this.getAll();
+      }
     })
     
   }

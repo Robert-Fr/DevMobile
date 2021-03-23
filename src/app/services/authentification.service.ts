@@ -12,7 +12,7 @@ import { UserService } from './user.service';
 
 
 
-export const redirectUnauthorizedToLogin =  () =>redirectUnauthorizedTo(['login'])  //pipe(redirectUnauthorizedTo(['login']), map(lol => emailVerified))
+export const redirectUnauthorizedToLogin =  () => redirectUnauthorizedTo(['login'])  //pipe(redirectUnauthorizedTo(['login']), map(lol => emailVerified))
 export const redirectAuthorizedToHome = () => redirectLoggedInTo(['home'])
 
 @Injectable({

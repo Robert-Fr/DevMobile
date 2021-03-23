@@ -38,7 +38,7 @@ export class AuthentificationService {
     const newUser = new User(googleUser.id,googleUser.email,googleUser.name, googleUser.imageUrl, true)
     this.userService.addUser(newUser)
     const credential = firebase.default.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken)
-    this.afAuth.signInAndRetrieveDataWithCredential(credential)
+    this.afAuth.signInWithCredential(credential)
   }
   
   public async login(email: string, psw: string){

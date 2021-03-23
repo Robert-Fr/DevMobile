@@ -33,8 +33,6 @@ export class HomePage implements OnInit {
       }
 
   ngOnInit(){
-    const queryObs = this.listService.getAllListsOfUser()
-    //this.lists = queryObs.
     this.listsOwned = this.listService.listsOwned
     this.listsRead = this.listService.listsRead
     this.listsWrite = this.listService.listsWrite
@@ -45,7 +43,6 @@ export class HomePage implements OnInit {
   loadSelector(){
     this.translate.stream('general.select_list_type.all').subscribe( s=> {
       this.listsTypes[0]={id:1 , name: s}
-      console.log("changement trad");
     })
     this.translate.stream('general.select_list_type.owned').subscribe( s=> {
       this.listsTypes[1]={id:2 , name: s}
@@ -56,14 +53,6 @@ export class HomePage implements OnInit {
     this.translate.stream('general.select_list_type.read').subscribe( s=> {
       this.listsTypes[3]={id:4 , name: s}
     })
-    /*
-    this.listsTypes= [ 
-      {id:1 , name: this.translate.stream('general.select_list_type.all').pipe( n => n) },
-      {id:2 , name: this.translate.stream('general.select_list_type.owned')},
-      {id:3 , name: this.translate.stream('general.select_list_type.write')},
-      {id:4 , name: this.translate.stream('general.select_list_type.read')}
-      ]
-    */
   }
 
   async openCreateModal(){

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MenuController, ModalController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { AuthentificationService } from 'src/app/services/authentification.service';
@@ -18,6 +19,7 @@ export class LoginPage implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private authentificationService: AuthentificationService,
     private router: Router,
+    public translateService: TranslateService,
     private menu: MenuController,
     private toastController: ToastController) { }
 
@@ -33,19 +35,17 @@ export class LoginPage implements OnInit {
   }
 
   ionViewDidLeave() {
-    // enable the root left menu when leaving the tutorial page
     this.menu.enable(true);
   }
   
   async login(): Promise<void> {
     try {
       const userCred = await this.authentificationService.login(this.loginForm.get('login').value, this.loginForm.get('password').value);
-      //this.authentificationService.userCredential = userCred
       if (userCred.user.emailVerified) {
         const toast = await this.toastController.create({
           color: "success",
           duration: 5000,
-          message: "Login successful",
+          message: this.translateService.instant('login.toastLoginSucess'),
         })
         await toast.present();
         this.router.navigate(['home']);
@@ -54,13 +54,13 @@ export class LoginPage implements OnInit {
         const toast = await this.toastController.create({
           color: "light",
           duration: 5000,
-          message: "This email isn\'t verified... check your mail box",
+          message: await this.translateService.instant('login.toastLoginNotVerified')
         })
         await toast.present();
       }
     }
     catch (error) {
-      var errorMessage = error.message;
+      const errorMessage = error.message;
       const toast = await this.toastController.create({
         color: "light",
         duration: 5000,
@@ -68,6 +68,14 @@ export class LoginPage implements OnInit {
       })
       await toast.present();
     };
+  }
+
+  public onEnglish() {
+    this.translateService.use('en');
+  }
+  
+  public onFrench() {
+    this.translateService.use('fr');
   }
 
   async googleSignup() {

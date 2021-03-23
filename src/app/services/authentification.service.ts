@@ -62,8 +62,8 @@ export class AuthentificationService {
 
   public signOut (){
     this.afAuth.signOut().then(() => {
-      console.log("Signed out !")
       this.router.navigate(['login'])
+      this.userService.cleanWhenDisconnect()
     })
   }
 

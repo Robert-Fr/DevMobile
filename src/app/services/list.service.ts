@@ -27,6 +27,7 @@ export class ListService  {
         this.getAll();
       }
     })
+    
   }
 
   getAll() {
@@ -35,27 +36,30 @@ export class ListService  {
       this.listsRead = this.getListsICanRead()
       this.listsWrite = this.getListsICanWrite()
     }
+    else{
+      this.cleanWhenDisconnect()
+    }
   }
 
   getListsOwned() {
+    if(this.authService.user && this.authService.user.value) {
     const obs = this.afs.collection<List>('Lists', ref => ref.where('owner', '==', this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
+    }
   }
 
   getListsICanRead() {
+    if(this.authService.user && this.authService.user.value) {
     const obs = this.afs.collection<List>('Lists', ref => ref.where('readers', "array-contains", this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
+    }
   }
 
   getListsICanWrite() {
+    if(this.authService.user && this.authService.user.value) {
     const obs = this.afs.collection<List>('Lists', ref => ref.where('writers', "array-contains", this.authService.user.value.email)).valueChanges({ idField: 'id' })
     return obs
-  }
-
-  getAllListsOfUser() {
-    //TODO
-    const obs = this.afs.collection<List>('Lists', ref => ref.where('owner', "==", this.authService.user.value.email)).valueChanges()
-    return obs
+    }
   }
 
   getOne(id: string) {
@@ -78,8 +82,15 @@ export class ListService  {
       )
   }
 
-  create(list: List) {
-    this.listsCollection.add({ ...list })
+  async create(list: List) {
+    if(this.authService.user && this.authService.user.value){
+      const querySnap = await this.afs.collection<List>('Lists', ref => ref.where('owner', '==',this.authService.user.value.email))
+      const q2 = await querySnap.ref.where('name','==',list.name)
+      const q3 = await querySnap.ref.where('creationDate','==',list.creationDate).get()
+      if(q3.size ==0){
+        this.listsCollection.add({ ...list })
+      }
+    }
   }
 
 
@@ -101,7 +112,9 @@ export class ListService  {
     //on peut maintenant supprimer la liste
     this.listsCollection.doc(list.id).delete()
   }
+  
 
+  
   addTodo(todo: Todo, listId: string) {
     this.listsCollection
       .doc(listId)
@@ -161,5 +174,11 @@ export class ListService  {
         return false
       })
     );
+  }
+
+  cleanWhenDisconnect(){
+    this.listsOwned = null
+    this.listsRead = null
+    this.listsWrite = null
   }
 }

@@ -12,6 +12,7 @@
     <!-- Sliding item with text options on both sides -->
     <ion-item-sliding *ngFor="let todo of (list | async )?.todos">
       <ion-item>
+        <ion-checkbox checked="{{todo.isDone}}" color="primary" (ionChange)="updateTodo(todo)"></ion-checkbox>
         <ion-label>{{todo.name}}</ion-label>
         <ion-label>{{todo.description}}</ion-label>
       </ion-item>
@@ -21,7 +22,6 @@
           <ion-icon slot="icon-only" name="trash"></ion-icon>
         </ion-item-option>
       </ion-item-options>
-      <ion-checkbox checked="todo.isDone" color="primary" (ionChange)="updateTodo(todo)"></ion-checkbox>
     </ion-item-sliding>
   </ion-list>
   <!-- On ne peut ajouter un todo dans la liste que si on est en droit d"ecriture / proprietaire-->

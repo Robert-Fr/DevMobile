@@ -5,6 +5,7 @@ import { ListService } from 'src/app/services/list.service';
 import { List } from 'src/app/models/list';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Todo } from 'src/app/models/todo';
 
 @Component({
   selector: 'app-list-details',
@@ -44,6 +45,8 @@ export class ListDetailsPage implements OnInit {
   }
 
   updateTodo(todo){
+    console.log("update todo "+ todo.isDone );
+    todo.isDone=!todo.isDone
     this.listService.updateTodo(todo, this.listId)
   }
 

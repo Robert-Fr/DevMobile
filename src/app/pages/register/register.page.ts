@@ -31,12 +31,11 @@ export class RegisterPage implements OnInit {
     })
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
   }
 
   ionViewDidLeave() {
-    // enable the root left menu when leaving the tutorial page
     this.menu.enable(true);
   }
 

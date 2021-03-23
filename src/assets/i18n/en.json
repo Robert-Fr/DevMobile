@@ -47,7 +47,7 @@
     },
     "navigation": {
         "profile": "My Profile",
-        "logout": "LogOut",
+        "logout": "Logout",
         "lists": "My lists",
         "english": "English",
         "french": "French"

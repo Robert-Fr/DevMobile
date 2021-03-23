@@ -20,11 +20,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {}
 
-  public openFirst() {
-    this.menu.enable(true, 'main-menu');
-    this.menu.open('main-menu');
-  }
-
   public toggleUserMenu() {
     this.userMenuOpen = !this.userMenuOpen;
   }

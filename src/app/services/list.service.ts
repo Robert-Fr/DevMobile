@@ -28,7 +28,7 @@ export class ListService {
   }
 
   getAll() {
-    if(this.authService.user.value) {
+    if(this.authService.user && this.authService.user.value) {
       this.listsOwned = this.getListsOwned()
       this.listsRead = this.getListsICanRead()
       this.listsWrite = this.getListsICanWrite()

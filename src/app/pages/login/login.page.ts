@@ -30,7 +30,7 @@ export class LoginPage implements OnInit {
     })
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
     this.menu.enable(false);
   }
 

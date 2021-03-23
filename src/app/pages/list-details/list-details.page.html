@@ -12,7 +12,8 @@
     <!-- Sliding item with text options on both sides -->
     <ion-item-sliding *ngFor="let todo of (list | async )?.todos">
       <ion-item>
-        <ion-label>{{ todo.name }}</ion-label>
+        <ion-label>{{todo.name}}</ion-label>
+        <ion-label>{{todo.description}}</ion-label>
       </ion-item>
       <!-- On ne peut supprimer un todo de la liste que si on est en droit d"ecriture / proprietaire <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">  -->
       <ion-item-options side="end" *ngIf="!(this.isReadOnly | async )">

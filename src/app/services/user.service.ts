@@ -8,7 +8,6 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  public userEmail: Observable<string>
   public users: Observable<User[]>
   private usersCollection: AngularFirestoreCollection<User>
   constructor(private afs :AngularFirestore) {
@@ -22,8 +21,10 @@ export class UserService {
     .delete()
   }
 
-  addUser(user : User){
-    this.usersCollection.add({...user})
+  async addUser(user : User){
+    const querySnap = await this.afs.collection<User>('Users', ref => ref.where('email', '==', user.email)).ref.get()
+    if(querySnap.size ==0)
+      this.usersCollection.add({...user})
   }
 
   getUserMail(email : String) {
@@ -33,6 +34,11 @@ export class UserService {
 
   getAll(){
     return this.users;
+  }
+
+  cleanWhenDisconnect(){
+    this.usersCollection=null;
+    this.users=null;
   }
 
 }

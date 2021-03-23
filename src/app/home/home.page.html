@@ -10,65 +10,70 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div id="container">
-    <ion-item>
-      <ion-item>
-        <ion-segment value=1 (ionChange)="mashallah($event)" >
-          <ion-segment-button [value]=1>
-            <ion-icon name="albums-outline"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button [value]=2>
-            <ion-icon name="person-outline"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button [value]=3>
-            <ion-icon name="pencil-outline"></ion-icon>
-          </ion-segment-button>
-          <ion-segment-button [value]=4>
-            <ion-icon name="reader-outline"></ion-icon>
-          </ion-segment-button>
-        </ion-segment>
-      </ion-item>
-    </ion-item>
-    <!-- Todo lists owned-->
-    <ion-list *ngIf="selectedType == 1 || selectedType == 2">
-      <ion-label>{{ 'home.owned' | translate }}</ion-label>
-      <ion-item-sliding *ngFor="let list of listsOwned | async">
-        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
-          <ion-label>{{ list.name }}</ion-label>
-        </ion-item>
-
-        <ion-item-options side="end">
-          <ion-item-option (click)="delete(list)" color="danger">
-            <ion-icon slot="icon-only" name="trash"></ion-icon>
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-list>
-
-    <!-- Todo lists read-->
-    <ion-list *ngIf="selectedType == 1 || selectedType == 4" >
-      <ion-label>{{ 'home.read' | translate }}</ion-label>
-      <ion-item-sliding *ngFor="let list of listsRead | async">
-        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
-          <ion-label>{{ list.name }}</ion-label>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-
-    <!-- Todo lists write-->
-    <ion-list *ngIf="selectedType == 1 || selectedType == 3">
-      <ion-label>{{ 'home.write' | translate }}</ion-label>
-      <ion-item-sliding *ngFor="let list of listsWrite | async">
-        <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
-          <ion-label>{{ list.name }}</ion-label>
-        </ion-item>
-      </ion-item-sliding>
-    </ion-list>
-
+    <ion-segment value=1 (ionChange)="mashallah($event)" >
+      <ion-segment-button [value]=1>
+        <ion-icon name="albums-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button [value]=2>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button [value]=3>
+        <ion-icon name="pencil-outline"></ion-icon>
+      </ion-segment-button>
+      <ion-segment-button [value]=4>
+        <ion-icon name="reader-outline"></ion-icon>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Todo lists owned-->
+        <ion-list *ngIf="selectedType == 1 || selectedType == 2">
+          <ion-label>{{ 'home.owned' | translate }}</ion-label>
+          <ion-item-sliding *ngFor="let list of listsOwned | async">
+            <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+              <ion-label>{{ list.name }}</ion-label>
+            </ion-item>
+    
+            <ion-item-options side="end">
+              <ion-item-option (click)="delete(list)" color="danger">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+    
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Todo lists read-->
+        <ion-list *ngIf="selectedType == 1 || selectedType == 4" >
+          <ion-label>{{ 'home.read' | translate }}</ion-label>
+          <ion-item-sliding *ngFor="let list of listsRead | async">
+            <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+              <ion-label>{{ list.name }}</ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>      
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <!-- Todo lists write-->
+        <ion-list *ngIf="selectedType == 1 || selectedType == 3">
+          <ion-label>{{ 'home.write' | translate }}</ion-label>
+          <ion-item-sliding *ngFor="let list of listsWrite | async">
+            <ion-item [routerLink]="['/list-details/' + list.id]" routerLinkActive="active">
+              <ion-label>{{ list.name }}</ion-label>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="openCreateModal()">
         <ion-icon size="large" name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>
-  </div>
 </ion-content>
+

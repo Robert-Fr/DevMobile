@@ -1,48 +1,68 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>{{ 'general.title' | translate }}</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen>
-  <ion-text color="primary" class="ion-text-center" >
-    <h1>{{ 'general.welcome' | translate }}</h1>
-  </ion-text>
-
-  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
-    <ion-item lines="full">
-      <ion-label position="floating">{{ 'login.inputLogin' | translate }}</ion-label>
-      <ion-input type="text" name="login" formControlName="login" required></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="errorControl.login.touched && errorControl.login.errors?.required">
-      <span>
-        {{ 'general.errors.fieldRequired' | translate }}
-      </span>
-    </ion-text>
+  <ion-row style="padding-top: 50px;">
+    <ion-col size="12" class="ion-text-center">
+      <ion-text color="dark">
+        <h1>{{ 'general.title' | translate }}</h1>
+      </ion-text>
+    </ion-col>
+  </ion-row>
+  <div class="flex">
+    <ion-card class="ion-justify-content-center ion-align-self-center ion-align-items-center">
+      <ion-text color="primary" class="ion-text-center" >
+        <h2>{{ 'general.welcome' | translate }}</h2>
+      </ion-text>
     
-    <ion-item lines="full">
-      <ion-label position="floating">{{ 'login.inputPassword' | translate }}</ion-label>
-      <ion-input type="password" name="password" formControlName="password" required></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="errorControl.password.touched && errorControl.password.errors?.required">
-      <span>
-        {{ 'general.errors.fieldRequired' | translate }}
-      </span>
-    </ion-text>   
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">{{ 'login.submitLogin' | translate }}</ion-button>
-      </ion-col>
-    </ion-row>
-  </form>
-
-  <ion-button (click)="googleSignup()">Sign in</ion-button>
-  <ion-toolbar>
-    <a routerLink='/register'>{{ 'login.registerNow' | translate }}</a>
-  </ion-toolbar>
-  <ion-toolbar>
-    <a routerLink='/password-recovery'>{{ 'login.passwordRecovery' | translate }}</a>
-  </ion-toolbar>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+        <ion-item lines="full">
+          <ion-label position="floating">{{ 'login.inputLogin' | translate }}</ion-label>
+          <ion-input type="text" name="login" formControlName="login" required></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="errorControl.login.touched && errorControl.login.errors?.required">
+          <span>
+            {{ 'general.errors.fieldRequired' | translate }}
+          </span>
+        </ion-text>
+        
+        <ion-item lines="full">
+          <ion-label position="floating">{{ 'login.inputPassword' | translate }}</ion-label>
+          <ion-input type="password" name="password" formControlName="password" required></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="errorControl.password.touched && errorControl.password.errors?.required">
+          <span>
+            {{ 'general.errors.fieldRequired' | translate }}
+          </span>
+        </ion-text>   
+        <ion-row>
+          <ion-col>
+            <ion-button [disabled]="loginForm.invalid" type="submit" color="primary" expand="block">{{ 'login.submitLogin' | translate }}</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-button (click)="googleSignup()" color="danger">
+            <ion-icon name="logo-google" style="margin-right: 5px;"></ion-icon>
+            <ion-label>{{ 'login.googleLogin' | translate }}</ion-label>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <a routerLink='/register'>{{ 'login.registerNow' | translate }}</a>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <a routerLink='/password-recovery'>{{ 'login.passwordRecovery' | translate }}</a>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  
+  </div>
+  
 </ion-content>
 <ion-footer>
   <ion-item class="ion-text-center">

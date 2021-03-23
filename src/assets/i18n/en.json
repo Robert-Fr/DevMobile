@@ -1,6 +1,7 @@
 {
     "home": {
         "title": "List(s)",
+        "all": "All",
         "owned" :"My lists",
         "read" : "ReadOnly lists",
         "write" : "Writable lists"
@@ -30,6 +31,7 @@
         "passwordRecovery": "Forgotten password ?",
         "toastLoginSucess": "Login successful",
         "toastLoginNotVerified": "This email isn't verified... check your mail box",
+        "googleLogin": "Google Sign in",
         "submitLogin": "Login"
     },
     "register": {
@@ -60,6 +62,9 @@
             "radioGroupName": "Associate settings",
             "radioWrite": "Write",
             "radioRead": "Read",
+            "toastSharingSucess": "Your list have been created and shared.",
+            "toastSucess": "Your list have been created.",
+            "toastError": "Your list have not been created",
             "submitList": "Add List"
         },
         "todo": {

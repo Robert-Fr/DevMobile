@@ -5,7 +5,7 @@ import { ListService } from 'src/app/services/list.service';
 import { List } from 'src/app/models/list';
 import { AuthentificationService } from 'src/app/services/authentification.service';
 import { UserService } from 'src/app/services/user.service';
-import { pluck, tap } from 'rxjs/operators';
+import { pluck, reduce, tap } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -31,7 +31,7 @@ export class CreateListComponent implements OnInit {
     this.newListForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       emailAuthorized: ['', Validators.email],
-      radioSettings: [this.translateService.instant('modal.list.radioWrite'), [Validators.required]]
+      radioSettings: [this.translateService.instant('modals.list.radioWrite'), [Validators.required]]
    })
   }
 
@@ -39,9 +39,28 @@ export class CreateListComponent implements OnInit {
       this.modalController.dismiss(); 
   }
 
-  async presentToast() {
+  async presentToastSharingSucess() {
     const toast = await this.toastController.create({
-      message: 'Your settings have been saved.',
+      message: this.translateService.instant('modals.list.toastSharingSucess'),
+      color: 'success',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastSucess() {
+    const toast = await this.toastController.create({
+      message: this.translateService.instant('modals.list.toastSucess'),
+      color: 'success',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  async presentToastError() {
+    const toast = await this.toastController.create({
+      message: this.translateService.instant('modals.list.toastError'),
+      color: 'danger',
       duration: 2000
     });
     toast.present();
@@ -57,21 +76,23 @@ export class CreateListComponent implements OnInit {
         Observable.subscribe({
           next: async email => {
             if (!email) {
-              await this.presentToast()
+              await this.presentToastError()
             } else { 
               const list = new List(this.newListForm.get('name').value,this.authService.user.value.email)
-              if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioWrite')) {
+              if (this.newListForm.get('radioSettings').value === this.translateService.instant('modals.list.radioWrite')) {
                 list.writers.push(email)
-              } else if (this.newListForm.get('radioSettings').value === this.translateService.instant('modal.list.radioRead')) {
+              } else if (this.newListForm.get('radioSettings').value === this.translateService.instant('modals.list.radioRead')) {
                 list.readers.push(email)
               }
-              this.listService.create(list);              
+              this.listService.create(list)
+              await this.presentToastSharingSucess()    
               this.dismissModal()
             }
           }
         })
       } else {
         this.listService.create(new List(this.newListForm.get('name').value,this.authService.user.value.email))
+        await this.presentToastSucess()
         this.dismissModal()
       }
     }

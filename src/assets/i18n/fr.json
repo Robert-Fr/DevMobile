@@ -1,6 +1,7 @@
 {
     "home": {
         "title": "Liste(s)",
+        "all": "Toute(s)",
         "owned" :"Mes listes",
         "read" : "Liste(s) partagée(s) en lecture",
         "write" : "Liste(s) partagée(s) en écriture"
@@ -24,12 +25,13 @@
         }
     },
     "login": {
-        "inputLogin": "Login",
+        "inputLogin": "Email",
         "inputPassword": "Mot de passe",
         "registerNow": "Pas encore enregistrer ?",
         "passwordRecovery": "Mot de passe oublié ?",
         "toastLoginSucess": "Connection réussie",
         "toastLoginNotVerified": "Cet email n'est pas vérifiez... Vérifiez vos mails.",
+        "googleLogin": "Google Connexion",
         "submitLogin": "Connexion"
     },
     "register": {
@@ -60,6 +62,9 @@
             "radioGroupName": "Paramètre de collaboration",
             "radioWrite": "Ecriture",
             "radioRead": "Lecture",
+            "toastSharingSucess": "Votre liste a été crée et partagée.",
+            "toastSucess": "Votre liste a été crée.",
+            "toastError": "Votre liste n'a pas été crée.",
             "submitList": "Ajouter la Liste"
         },
         "todo": {

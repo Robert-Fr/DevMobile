@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
     catch (error) {
       const errorMessage = error.message;
       const toast = await this.toastController.create({
-        color: "light",
+        color: "danger",
         duration: 5000,
         message: errorMessage,
       })

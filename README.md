@@ -29,4 +29,5 @@
   <li>Retour utilisateurs lors de certaines actions (Creation compte / changement mot de passe / erreur diverses sur l'appli...</li>
   <li>Possibilité de traduire les textes de l'appli en Anglais/Français</li>
   <li>Menu de navigation</li>
+  <li>Utilisation de grid ionic et de Flex pour le placement de certains composants </li>
 </ul>

@@ -1,5 +1,19 @@
 .flex {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.flex-container{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80%;
+}
+
+.flex-title {
+    display: flex;
+    flex-wrap: nowrap;
     justify-content: center;
 }

@@ -85,9 +85,8 @@ export class ListService  {
   async create(list: List) {
     if(this.authService.user && this.authService.user.value){
       const querySnap = await this.afs.collection<List>('Lists', ref => ref.where('owner', '==',this.authService.user.value.email))
-      const q2 = await querySnap.ref.where('name','==',list.name)
-      const q3 = await querySnap.ref.where('creationDate','==',list.creationDate).get()
-      if(q3.size ==0){
+      const q2 = await querySnap.ref.where('name','==',list.name).where('creationDate','==',list.creationDate).get()
+      if(q2.size ==0){        
         this.listsCollection.add({ ...list })
       }
     }

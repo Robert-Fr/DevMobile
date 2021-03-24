@@ -9,6 +9,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase';
 import { User } from '../models/user';
 import { UserService } from './user.service';
+import { pluck } from 'rxjs/operators';
 
 
 
@@ -35,10 +36,11 @@ export class AuthentificationService {
 
   public async googleSignup() {
     const googleUser = await Plugins.GoogleAuth.signIn()
-    const newUser = new User(googleUser.id,googleUser.email,googleUser.name, googleUser.imageUrl, true)
-    this.userService.addUser(newUser)
+
     const credential = firebase.default.auth.GoogleAuthProvider.credential(googleUser.authentication.idToken)
-    this.afAuth.signInWithCredential(credential)
+    const user = await (await this.afAuth.signInWithCredential(credential)).user
+    const newUser = new User(user.uid,user.email,user.displayName, user.photoURL, user.emailVerified)
+    this.userService.addUser(newUser)
   }
   
   public async login(email: string, psw: string){

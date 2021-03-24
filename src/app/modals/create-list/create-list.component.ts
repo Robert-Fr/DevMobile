@@ -81,8 +81,10 @@ export class CreateListComponent implements OnInit {
               const list = new List(this.newListForm.get('name').value,this.authService.user.value.email)
               if (this.newListForm.get('radioSettings').value === this.translateService.instant('modals.list.radioWrite')) {
                 list.writers.push(email)
+                console.log(email);
               } else if (this.newListForm.get('radioSettings').value === this.translateService.instant('modals.list.radioRead')) {
                 list.readers.push(email)
+                console.log(email);
               }
               this.listService.create(list)
               await this.presentToastSharingSucess()    

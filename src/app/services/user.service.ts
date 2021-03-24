@@ -21,10 +21,8 @@ export class UserService {
     .delete()
   }
 
-  async addUser(user : User){
-    const querySnap = await this.afs.collection<User>('Users', ref => ref.where('email', '==', user.email)).ref.get()
-    if(querySnap.size ==0)
-      this.usersCollection.add({...user})
+  async addUser(user : User) {
+    this.usersCollection.add({...user})
   }
 
   getUserMail(email : String) {

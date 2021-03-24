@@ -21,8 +21,8 @@ export class UserService {
     .delete()
   }
 
-  async addUser(user : User) {
-    this.usersCollection.add({...user})
+  async addUser(user : User) {    
+    return this.usersCollection.add({...user})
   }
 
   getUserMail(email : String) {

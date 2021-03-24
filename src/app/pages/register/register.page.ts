@@ -51,7 +51,7 @@ export class RegisterPage implements OnInit {
       await toast.present();
       //Si le compte a été crée avec succès on enregistre le UID dans firestore dans la collection "Users"
       const newUser = new User(userCred.user.uid,userCred.user.email,userCred.user.displayName,userCred.user.photoURL,userCred.user.emailVerified)
-      this.userService.addUser(newUser)
+      await this.userService.addUser(newUser)
       this.router.navigate(['login']);
     } catch (e) {
       const toast = await this.toastController.create({
